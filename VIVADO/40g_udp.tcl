@@ -40,3 +40,11 @@ write_verilog -force $outputDir/udp_40G_TOP_impl_netlist.v
 write_xdc -no_fixed_only -force $outputDir/udp_40G_TOP_impl.xdc
 
 write_bitstream -force outputDir/udp_40G_TOP.bit
+
+
+read_verilog ./Sources/include/top_define.v
+save_project_as sim -force
+set_property top MAC_40G_tb [get_fileset sim_1]
+launch_simulation -simset sim_1 -mode behavioral
+run 1000us
+quit
