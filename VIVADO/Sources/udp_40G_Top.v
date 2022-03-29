@@ -1,4 +1,3 @@
- `define  SIM
 module udp_40G_TOP
 (
     input  [3 :0]   gt_rxp_in_40MAC_0               ,
