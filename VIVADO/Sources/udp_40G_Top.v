@@ -499,7 +499,7 @@ ila_0 u_ila_0 (
   .probe6(tx_axis_tvalid_40MAC_0), // input wire [0:0]  probe6 
   .probe7(tx_axis_tlast_40MAC_0), // input wire [0:0]  probe7 
   .probe8(tx_axis_tkeep_40MAC_0), // input wire [0:0]  probe8 
-  .probe9(fsm_dataOut_ready_0) // input wire [0:0]  probe9
+  .probe9(rx_dataOut_ready_0) // input wire [0:0]  probe9
 
 );
 
@@ -516,7 +516,7 @@ ila_0 u_ila_1 (
   .probe6(tx_axis_tvalid_40MAC_1), // input wire [0:0]  probe6 
   .probe7(tx_axis_tlast_40MAC_1), // input wire [0:0]  probe7 
   .probe8(tx_axis_tkeep_40MAC_1), // input wire [0:0]  probe8 
-  .probe9(fsm_dataOut_ready_1) // input wire [0:0]  probe9
+  .probe9(rx_dataOut_ready_1) // input wire [0:0]  probe9
 
 );
 endmodule
