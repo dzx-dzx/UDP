@@ -1,4 +1,5 @@
 `define SIM_SPEED_UP
+`define  SIM
 `timescale 1fs/1fs
 
 module MAC_40G_tb
