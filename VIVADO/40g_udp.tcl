@@ -32,7 +32,7 @@ report_timing_summary -file $outputDir/post_place_timing_summary.rpt
 route_design
 write_checkpoint -force $outputDir/post_route
 report_timing_summary -file $outputDir/post_route_timing_summary.rpt
-report_timming -sort_by group -max_paths 100 -path_type summary -file $outputDir/post_route_timing.rpt
+report_timing -sort_by group -max_paths 100 -path_type summary -file $outputDir/post_route_timing.rpt
 report_clock_utilization -file $outputDir/post_route_util.rpt
 report_power -file $outputDir/post_imp_drc.rpt
 report_drc -file $outputDir/post_impl_drc.rpt
