@@ -1,4 +1,4 @@
-package udp_master
+package udp_master_stream
 
 import spinal.core.SpinalConfig
 

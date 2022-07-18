@@ -1,12 +1,12 @@
-package udp_master
+package udp_master_stream
 
 import spinal.core._
 import spinal.lib._
 
 case class EthernetRxGenerics(
-    destIp: Long, //Destination IP address 32bit
-    destMac: Long, //Destination MAC address 48bit
-    destPort: Int //Destination port 16bit
+    destIp: Long,  // Destination IP address 32bit
+    destMac: Long, // Destination MAC address 48bit
+    destPort: Int  // Destination port 16bit
 )
 
 object StreamExtractCompany {
@@ -24,7 +24,7 @@ object StreamExtractCompany {
           TupleBundle2(inputStream.payloadType, companyFlow.payloadType)
         result._1 := inputStream.payload
         when(companyFlow.valid) {
-          result._2 := companyFlow.payload
+          result._2  := companyFlow.payload
           companyReg := companyFlow.payload
         } otherwise {
           result._2 := companyReg
@@ -36,11 +36,11 @@ object StreamExtractCompany {
 
 case class EthernetHeadRx() extends Bundle {
   val udpCheckSum = Bits(EthernetProtocolConstant.UDP_CHECKSUM bits)
-  val udpLength = Bits(EthernetProtocolConstant.UDP_LENGTH_WIDTH bits)
-  val destPort = Bits(EthernetProtocolConstant.PORT_WIDTH bits)
-  val srcPort = Bits(EthernetProtocolConstant.PORT_WIDTH bits)
-  val destIp = Bits(EthernetProtocolConstant.IP_WIDTH bits)
-  val srcIp = Bits(EthernetProtocolConstant.IP_WIDTH bits)
+  val udpLength   = Bits(EthernetProtocolConstant.UDP_LENGTH_WIDTH bits)
+  val destPort    = Bits(EthernetProtocolConstant.PORT_WIDTH bits)
+  val srcPort     = Bits(EthernetProtocolConstant.PORT_WIDTH bits)
+  val destIp      = Bits(EthernetProtocolConstant.IP_WIDTH bits)
+  val srcIp       = Bits(EthernetProtocolConstant.IP_WIDTH bits)
   val headerCheckSum = Bits(
     EthernetProtocolConstant.HEADER_CHECKSUM_WIDTH bits
   )
@@ -52,22 +52,22 @@ case class EthernetHeadRx() extends Bundle {
     EthernetProtocolConstant.IDENTIFICATION_WIDTH bits
   )
   val totalLength = Bits(EthernetProtocolConstant.TOTAL_LENGTH_WIDTH bits)
-  val tos = Bits(EthernetProtocolConstant.TOS_WIDTH bits)
-  val versionIhl = Bits(EthernetProtocolConstant.VERSION_IHL_WIDTH bits)
-  val ethType = Bits(EthernetProtocolConstant.ETH_TYPE_WIDTH bits)
-  val srcMac = Bits(EthernetProtocolConstant.MAC_WIDTH bits)
-  val destMac = Bits(EthernetProtocolConstant.MAC_WIDTH bits)
+  val tos         = Bits(EthernetProtocolConstant.TOS_WIDTH bits)
+  val versionIhl  = Bits(EthernetProtocolConstant.VERSION_IHL_WIDTH bits)
+  val ethType     = Bits(EthernetProtocolConstant.ETH_TYPE_WIDTH bits)
+  val srcMac      = Bits(EthernetProtocolConstant.MAC_WIDTH bits)
+  val destMac     = Bits(EthernetProtocolConstant.MAC_WIDTH bits)
   val preambleSdf = Bits(EthernetProtocolConstant.PREAMBLE_SDF_WIDTH bits)
 
 }
 
 case class EthernetRxDataEth() extends Bundle {
-  val eth = EthernetHeadRx()
+  val eth   = EthernetHeadRx()
   val input = Fragment(EthernetRxDataIn())
 }
 
 case class EthernetRxDataIn() extends Bundle {
-  val data = Bits(EthernetUserConstant.DATA_WIDTH bits)
+  val data  = Bits(EthernetUserConstant.DATA_WIDTH bits)
   val tkeep = Bits(EthernetUserConstant.KEEP_WIDTH bits)
 }
 
@@ -77,8 +77,7 @@ case class EthernetRxDataOut() extends Bundle {
   val tkeep = Bits(EthernetUserConstant.KEEP_WIDTH bits)
 }
 
-case class EthernetRx(ethernetRxGenerics: EthernetRxGenerics)
-    extends Component {
+case class EthernetRx(ethernetRxGenerics: EthernetRxGenerics) extends Component {
   val io = new Bundle {
     val dataIn =
       slave Stream (Fragment(EthernetRxDataIn()))
@@ -104,13 +103,13 @@ case class EthernetRx(ethernetRxGenerics: EthernetRxGenerics)
   )
 
   val inputData = Stream(Fragment(EthernetRxDataIn()))
-  val inputEth = Stream(EthernetHeadRx())
+  val inputEth  = Stream(EthernetHeadRx())
 
   inputData << dataInExtractCompany1.translateWith {
     val ret = Fragment(EthernetRxDataIn())
     ret.tkeep := dataInExtractCompany._1.tkeep
-    ret.data := dataInExtractCompany._1.data
-    ret.last := dataInExtractCompany._1.last
+    ret.data  := dataInExtractCompany._1.data
+    ret.last  := dataInExtractCompany._1.last
     ret
   }
 
@@ -161,9 +160,9 @@ case class EthernetRx(ethernetRxGenerics: EthernetRxGenerics)
     .translateWith {
       val ret = EthernetRxDataEth()
       ret.input.tkeep := inputData.tkeep
-      ret.input.data := inputData.data
-      ret.input.last := inputData.last
-      ret.eth := inputEth.payload
+      ret.input.data  := inputData.data
+      ret.input.last  := inputData.last
+      ret.eth         := inputEth.payload
       ret
     }
 
@@ -185,7 +184,7 @@ case class EthernetRx(ethernetRxGenerics: EthernetRxGenerics)
   io.dataOut <-/< ethUdpCheck.translateWith {
     val ret = Fragment(EthernetRxDataOut())
     ret.tkeep := ethUdpCheck.input.tkeep
-    ret.data := ethUdpCheck.input.data
+    ret.data  := ethUdpCheck.input.data
 //    ret.byteNum := ethUdpCheck.eth.udpLength.asUInt - EthernetProtocolConstant.UDP_ETH_LENGTH
     ret.last := ethUdpCheck.input.last
     ret
