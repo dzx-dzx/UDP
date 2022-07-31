@@ -7,3 +7,5 @@
 *.log
 sim_build
 __pycache__
+*.vcd
+results.xml

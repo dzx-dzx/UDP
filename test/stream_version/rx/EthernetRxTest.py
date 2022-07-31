@@ -8,6 +8,9 @@ from cocotb.result import TestSuccess, TestFailure
 from cocotb.triggers import RisingEdge
 from queue import Queue
 
+# from remote_pdb import RemotePdb
+# rpdb = RemotePdb("127.0.0.1", 4000)
+
 BYTE_WIDTH = 8
 DATA_WIDTH = 512
 KEEP_WIDTH = 64
@@ -121,7 +124,6 @@ class RxTopTester:
             return eth
 
         udp_socket = socket(AF_INET, SOCK_RAW, IPPROTO_UDP)
-
         local_addr = ("127.0.0.1", 37984)
 
         udp_socket.bind(local_addr)
@@ -129,6 +131,7 @@ class RxTopTester:
         udp_socket.setsockopt(IPPROTO_IP, IP_HDRINCL, 1)
 
         recv_data = udp_socket.recvfrom(65535)  #
+        print(recv_data)
 
         data = recv_data[0]  # 存储接收到的数据
         msg = data[28:]
@@ -269,6 +272,7 @@ class RxTopTester:
 @cocotb.test(timeout_time=200000, timeout_unit="ns")
 async def eth_rx_test(dut):
     await cocotb.start(Clock(dut.clk, 10, "ns").start())
+    # rpdb.set_trace()
 
     # set default values to all dut input ports
     dut.io_dataIn_valid.value = False

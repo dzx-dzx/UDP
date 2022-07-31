@@ -95,6 +95,7 @@ case class EthernetRx(ethernetRxGenerics: EthernetRxGenerics) extends Component 
         result.valid := False
       }
     }.result
+    //提取包头数据并维持在处理整个包时有效, 直到下一个包头.
 
   val dataInExtractCompany = StreamExtractCompany(io.dataIn, companyExtractFunc)
 
@@ -162,7 +163,7 @@ case class EthernetRx(ethernetRxGenerics: EthernetRxGenerics) extends Component 
       ret.input.tkeep := inputData.tkeep
       ret.input.data  := inputData.data
       ret.input.last  := inputData.last
-      ret.eth         := inputEth.payload
+      ret.eth         := inputEth.payload//包传递完成前保持不变.
       ret
     }
 
@@ -180,6 +181,7 @@ case class EthernetRx(ethernetRxGenerics: EthernetRxGenerics) extends Component 
   ethUdpCheck <-/< ethIpCheck.throwWhen(
     EthUdpCheck(ethUdpCheck.eth)
   )
+  //校验包头各部分.
 
   io.dataOut <-/< ethUdpCheck.translateWith {
     val ret = Fragment(EthernetRxDataOut())

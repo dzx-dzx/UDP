@@ -10,6 +10,11 @@ from cocotb.triggers import RisingEdge
 from queue import Queue
 from collections import deque
 
+import debugpy
+debugpy.listen(4000)
+print("Waiting for debugger attach")
+debugpy.wait_for_client()
+
 BYTE_WIDTH = 8
 DATA_WIDTH = 512
 KEEP_WIDTH = 64
@@ -67,7 +72,7 @@ class TxTopTester:
         for i in range(data_num):
             data_512bit = ""
             for j in range(DATA_WIDTH // BYTE_WIDTH):
-                data_8bit = "{0:08b}".format(msg[i * 64 + j])
+                data_8bit = "{0:08b}".format(msg[i * 64 + j]) # https://stackoverflow.com/questions/10411085/converting-integer-to-binary-in-python
                 data_512bit = data_512bit + data_8bit
             data_in_fragment = int(data_512bit, base=2)
             data_in_keep = (2**KEEP_WIDTH) - 1
@@ -180,7 +185,7 @@ class TxTopTester:
                     deff,
                     total_len,
                     data_id,
-                    flag,
+                    flag_deff,# Used to be 3 bits `flag`, which is erroneous.
                     ttl,
                     proto,
                     head_checksum,
@@ -199,6 +204,8 @@ class TxTopTester:
                 print(data[1:])
 
                 data_byte = data.encode("utf-8")
+                print(dataOut_eth)
+                print(ip_eth + udp_eth, (dest_ip_addr, dest_port))
                 udp_socket.sendto(
                     ip_eth + udp_eth + data_byte, (dest_ip_addr, dest_port)
                 )
