@@ -47,7 +47,7 @@ object EthernetProtocolConstant {
   val IP_WIDTH                    = 32
   val PORT_WIDTH                  = 16
   val UDP_LENGTH_WIDTH            = 16
-  val UDP_CHECKSUM                = 16
+  val UDP_CHECKSUM_WIDTH          = 16
 }
 
 import EthernetProtocolConstant._
@@ -75,7 +75,7 @@ case class UDPHeader() extends Bundle {
   val srcPort     = Bits(PORT_WIDTH bits)
   val destPort    = Bits(PORT_WIDTH bits)
   val udpLength   = Bits(UDP_LENGTH_WIDTH bits)
-  val udpCheckSum = UInt(UDP_CHECKSUM bits)
+  val udpCheckSum = UInt(UDP_CHECKSUM_WIDTH bits)
 }
 
 case class Header() extends Bundle {
@@ -101,12 +101,15 @@ case class EthernetHeadTx() extends Bundle {
   val srcPort             = Bits(PORT_WIDTH bits)
   val destPort            = Bits(PORT_WIDTH bits)
   val udpLength           = Bits(UDP_LENGTH_WIDTH bits)
-  val udpCheckSum         = UInt(UDP_CHECKSUM bits)
+  val udpCheckSum         = UInt(UDP_CHECKSUM_WIDTH bits)
 
   def asBigEndianBitsTx: Bits = {
     val header = this.elements
       .map(_._2.asBits)
-      .reduceRight((a, b) => a ## b) ## B(112 bits, default -> False)//I actually spent 6 hours on these three lines of code...
+      .reduceRight((a, b) => a ## b) ## B(
+      112 bits,
+      default -> False
+    ) // I actually spent 6 hours on these three lines of code...
     header
   }
 }

@@ -35,7 +35,7 @@ object StreamExtractCompany {
 }
 
 case class EthernetHeadRx() extends Bundle {
-  val udpCheckSum = Bits(EthernetProtocolConstant.UDP_CHECKSUM bits)
+  val udpCheckSum = Bits(EthernetProtocolConstant.UDP_CHECKSUM_WIDTH bits)
   val udpLength   = Bits(EthernetProtocolConstant.UDP_LENGTH_WIDTH bits)
   val destPort    = Bits(EthernetProtocolConstant.PORT_WIDTH bits)
   val srcPort     = Bits(EthernetProtocolConstant.PORT_WIDTH bits)
