@@ -9,3 +9,7 @@ sim_build
 __pycache__
 *.vcd
 results.xml
+/tmp
+/simWorkspace
+/xsim.dir
+.~lock.40G udp stream.docx#
