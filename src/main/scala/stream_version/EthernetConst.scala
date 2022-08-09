@@ -7,6 +7,7 @@ object EthernetUserConstant {
   val KEEP_WIDTH         = 64
   val BYTE_NUM_WIDTH     = 16
   val CHECK_BUFFER_WIDTH = 32
+  val ERROR_CNT_WIDTH    = 16
 }
 
 object EthernetProtocolConstant {

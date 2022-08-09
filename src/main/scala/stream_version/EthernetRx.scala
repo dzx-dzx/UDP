@@ -72,9 +72,12 @@ case class EthernetRxDataIn() extends Bundle {
 }
 
 case class EthernetRxDataOut() extends Bundle {
-  val data = Bits(EthernetUserConstant.DATA_WIDTH bits)
-//  val byteNum = UInt(EthernetUserConstant.BYTE_NUM_WIDTH bits)
+  val data  = Bits(EthernetUserConstant.DATA_WIDTH bits)
   val tkeep = Bits(EthernetUserConstant.KEEP_WIDTH bits)
+
+  val byteNum   = UInt(EthernetUserConstant.BYTE_NUM_WIDTH bits)
+  val errorCnt  = UInt(EthernetUserConstant.ERROR_CNT_WIDTH bits)
+  val errorFlag = Bool()
 }
 
 case class EthernetRx(ethernetRxGenerics: EthernetRxGenerics) extends Component {
@@ -95,7 +98,7 @@ case class EthernetRx(ethernetRxGenerics: EthernetRxGenerics) extends Component 
         result.valid := False
       }
     }.result
-    //提取包头数据并维持在处理整个包时有效, 直到下一个包头.
+  // 提取包头数据并维持在处理整个包时有效, 直到下一个包头.
 
   val dataInExtractCompany = StreamExtractCompany(io.dataIn, companyExtractFunc)
 
@@ -163,7 +166,7 @@ case class EthernetRx(ethernetRxGenerics: EthernetRxGenerics) extends Component 
       ret.input.tkeep := inputData.tkeep
       ret.input.data  := inputData.data
       ret.input.last  := inputData.last
-      ret.eth         := inputEth.payload//包传递完成前保持不变.
+      ret.eth         := inputEth.payload // 包传递完成前保持不变.
       ret
     }
 
@@ -181,14 +184,16 @@ case class EthernetRx(ethernetRxGenerics: EthernetRxGenerics) extends Component 
   ethUdpCheck <-/< ethIpCheck.throwWhen(
     EthUdpCheck(ethUdpCheck.eth)
   )
-  //校验包头各部分.
+  // 校验包头各部分.
 
   io.dataOut <-/< ethUdpCheck.translateWith {
     val ret = Fragment(EthernetRxDataOut())
-    ret.tkeep := ethUdpCheck.input.tkeep
-    ret.data  := ethUdpCheck.input.data
-//    ret.byteNum := ethUdpCheck.eth.udpLength.asUInt - EthernetProtocolConstant.UDP_ETH_LENGTH
-    ret.last := ethUdpCheck.input.last
+    ret.tkeep     := ethUdpCheck.input.tkeep
+    ret.data      := ethUdpCheck.input.data
+    ret.byteNum   := ethUdpCheck.eth.udpLength.asUInt - EthernetProtocolConstant.UDP_ETH_LENGTH
+    ret.last      := ethUdpCheck.input.last
+    ret.errorCnt  := 0
+    ret.errorFlag := False
     ret
   }
 
