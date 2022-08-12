@@ -1,7 +1,6 @@
 package udp_master_stream
 
 import spinal.core._
-import spinal.lib._
 
 object EthernetUserConstant {
   val DATA_WIDTH         = 512

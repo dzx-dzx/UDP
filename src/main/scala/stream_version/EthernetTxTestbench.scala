@@ -1,23 +1,19 @@
 package udp_master_stream
 
-import spinal.sim._
 import spinal.core._
 import spinal.core.sim._
-import java.util.Random
-import spinal.core.internals.Operator
 import scala.collection.mutable.Queue
-import spinal.lib.com.eth.MacRxPreamble
 
 object EthernetTxTestbench {
   def main(args: Array[String]): Unit = {
-    val compiled = SimConfig.withWave
+    SimConfig.withWave
       .compile(
         new EthernetTx(
           ethernetTxGenerics = EthernetTxGenerics(
-            destIp = 0x7f000001,       // 0xc0a8aeffL, //目的IP地址 32bit //0xc0a8ae01L
+            destIp = 0x7f000001, // 0xc0a8aeffL, //目的IP地址 32bit //0xc0a8ae01L
             destMac = 0x111111111111L, // 目的MAC地址 48bit
-            destPort = 37984,          // 8080, //目标端口号 16bit
-            srcIp = 0x7f000001,        // 0xc0a8aeffL,
+            destPort = 37984, // 8080, //目标端口号 16bit
+            srcIp = 0x7f000001, // 0xc0a8aeffL,
             srcMac = 0x111111111101L,
             srcPort = 37985 // 37984
           )
@@ -29,19 +25,18 @@ object EthernetTxTestbench {
           // SimTimeout(100 * 10)
           val io = dut.io
 
-          val scoreboard       = Queue[String]()
+          val scoreboard = Queue[String]()
           val stimulusFragment = Queue[String]()
-          val outputFragment   = Queue[String]()
+          val outputFragment = Queue[String]()
           def extractDataFromFragments(q: Queue[String]): String = {
             var ret = ""
-            while (q.nonEmpty) ret = ret + q.dequeue
+            while (q.nonEmpty) ret = ret + q.dequeue()
             ret
           }
 
           def createHeader(headerRaw: BigInt) = {
             import EthernetProtocolConstant._
             var positionInHeaderString = 0
-            val bitLength              = headerRaw.toString(2).length()
 
             val SEGMENTS_WIDTH = List(
               // MAC
@@ -100,13 +95,21 @@ object EthernetTxTestbench {
                   //   ).toString(16)
                   headerRaw
                     .toString(2)
-                    .slice(positionInHeaderString, positionInHeaderString + SEGMENTS_WIDTH(i))
+                    .slice(
+                      positionInHeaderString,
+                      positionInHeaderString + SEGMENTS_WIDTH(i)
+                    )
               )
               println(
-                SEGMENTS(i),
-                SEGMENTS_WIDTH(i),
-                ("0" + headerRaw.toString(2)) //Leading zero...
-                  .slice(positionInHeaderString, positionInHeaderString + SEGMENTS_WIDTH(i))
+                (
+                  SEGMENTS(i),
+                  SEGMENTS_WIDTH(i),
+                  ("0" + headerRaw.toString(2)) // Leading zero...
+                    .slice(
+                      positionInHeaderString,
+                      positionInHeaderString + SEGMENTS_WIDTH(i)
+                    )
+                )
               )
               positionInHeaderString += SEGMENTS_WIDTH(i)
             }
@@ -122,7 +125,9 @@ object EthernetTxTestbench {
               io.dataIn.valid.randomize()
 
               if (io.dataIn.valid.toBoolean && io.dataIn.ready.toBoolean) {
-                stimulusFragment.enqueue(io.dataIn.payload.data.toBigInt.toString(16))
+                stimulusFragment.enqueue(
+                  io.dataIn.payload.data.toBigInt.toString(16)
+                )
                 if (io.dataIn.payload.last.toBoolean) {
                   val stimulus = extractDataFromFragments(stimulusFragment)
                   scoreboard.enqueue(stimulus)
@@ -141,7 +146,9 @@ object EthernetTxTestbench {
 
               if (io.dataOut.valid.toBoolean && io.dataOut.ready.toBoolean) {
                 if (!isHeader)
-                  outputFragment.enqueue(io.dataOut.payload.data.toBigInt.toString(16))
+                  outputFragment.enqueue(
+                    io.dataOut.payload.data.toBigInt.toString(16)
+                  )
                 else {
                   println(Console.YELLOW + s"Header:")
                   createHeader(io.dataOut.payload.data.toBigInt)
@@ -149,7 +156,9 @@ object EthernetTxTestbench {
                 if (io.dataOut.payload.last.toBoolean) {
                   val output = extractDataFromFragments(outputFragment)
                   println(Console.BLUE + s"Output:\n${output}")
-                  assert(scoreboard.nonEmpty && scoreboard.dequeue().equals(output))
+                  assert(
+                    scoreboard.nonEmpty && scoreboard.dequeue().equals(output)
+                  )
                   isHeader = true
                 } else {
                   isHeader = false
