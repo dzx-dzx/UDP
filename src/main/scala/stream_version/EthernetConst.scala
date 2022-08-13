@@ -1,7 +1,6 @@
 package udp_master_stream
 
 import spinal.core._
-import spinal.lib._
 
 object EthernetUserConstant {
   val DATA_WIDTH         = 512
@@ -50,16 +49,22 @@ object EthernetProtocolConstant {
   val UDP_CHECKSUM_WIDTH          = 16
 }
 
+trait HeaderSegments extends Bundle {
+  def concat = this.elements
+    .map(_._2.asBits)
+    .reduceRight((a, b) => a ## b)
+}
+
 import EthernetProtocolConstant._
 
-case class MacHeader() extends Bundle {
+case class MacHeader() extends HeaderSegments {
   val preambleSdf = Bits(PREAMBLE_SDF_WIDTH bits)
   val destMac     = Bits(MAC_WIDTH bits)
   val srcMac      = Bits(MAC_WIDTH bits)
   val ethType     = Bits(ETH_TYPE_WIDTH bits)
 }
 
-case class IPHeader() extends Bundle {
+case class IPHeader() extends HeaderSegments {
   val versionIhl          = Bits(VERSION_IHL_WIDTH bits)
   val tos                 = Bits(TOS_WIDTH bits)
   val totalLength         = UInt(TOTAL_LENGTH_WIDTH bits)
@@ -71,45 +76,17 @@ case class IPHeader() extends Bundle {
   val destIp              = Bits(IP_WIDTH bits)
 }
 
-case class UDPHeader() extends Bundle {
+case class UDPHeader() extends HeaderSegments {
   val srcPort     = Bits(PORT_WIDTH bits)
   val destPort    = Bits(PORT_WIDTH bits)
   val udpLength   = Bits(UDP_LENGTH_WIDTH bits)
   val udpCheckSum = UInt(UDP_CHECKSUM_WIDTH bits)
 }
 
-case class Header() extends Bundle {
+case class Header() extends HeaderSegments{
   val mac = MacHeader()
   val ip  = IPHeader()
   val udp = UDPHeader()
+  override def concat: Bits = mac.concat ## ip.concat ## udp.concat
 }
 
-case class EthernetHeadTx() extends Bundle {
-  val preambleSdf         = Bits(PREAMBLE_SDF_WIDTH bits)
-  val destMac             = Bits(MAC_WIDTH bits)
-  val srcMac              = Bits(MAC_WIDTH bits)
-  val ethType             = Bits(ETH_TYPE_WIDTH bits)
-  val versionIhl          = Bits(VERSION_IHL_WIDTH bits)
-  val tos                 = Bits(TOS_WIDTH bits)
-  val totalLength         = UInt(TOTAL_LENGTH_WIDTH bits)
-  val identification      = UInt(IDENTIFICATION_WIDTH bits)
-  val flagsFragmentOffset = Bits(FLAGS_FRAGMENT_OFFSET_WIDTH bits)
-  val ttlProtocol         = Bits(TTL_PROTOCOL_WIDTH bits)
-  val headerCheckSum      = UInt(HEADER_CHECKSUM_WIDTH bits)
-  val srcIp               = Bits(IP_WIDTH bits)
-  val destIp              = Bits(IP_WIDTH bits)
-  val srcPort             = Bits(PORT_WIDTH bits)
-  val destPort            = Bits(PORT_WIDTH bits)
-  val udpLength           = Bits(UDP_LENGTH_WIDTH bits)
-  val udpCheckSum         = UInt(UDP_CHECKSUM_WIDTH bits)
-
-  def asBigEndianBitsTx: Bits = {
-    val header = this.elements
-      .map(_._2.asBits)
-      .reduceRight((a, b) => a ## b) ## B(
-      112 bits,
-      default -> False
-    ) // I actually spent 6 hours on these three lines of code...
-    header
-  }
-}

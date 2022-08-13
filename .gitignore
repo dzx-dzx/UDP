@@ -1,7 +1,8 @@
 /.metals
 /.bloop
 /.bsp
-/project
+/project/*
+!/project/plugins.sbt
 /target
 /rtl
 *.log
