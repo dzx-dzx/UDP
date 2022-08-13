@@ -48,10 +48,6 @@ case class EthernetTx(ethernetTxGenerics: EthernetTxGenerics) extends Component 
     realTxDataNum := MIN_DATA_NUM
   }
 
-  val (inputStream1, inputStream2) = StreamFork2(io.dataIn)
-  // 前一个计算checksum, 后一个传输数据.
-  // 是否有可能有别的写法?
-
   val ethReg = Header()
   // Mac
   ethReg.mac.preambleSdf := PREAMBLE_SDF
@@ -86,7 +82,8 @@ case class EthernetTx(ethernetTxGenerics: EthernetTxGenerics) extends Component 
     val checkSumStage3 =
       Stream(UInt(EthernetUserConstant.CHECK_BUFFER_WIDTH bits))
 
-    checkSumStage1 <-/< inputStream1
+    val inputFlow = io.dataIn.asFlow
+    checkSumStage1 <-/< inputFlow.toStream
       .translateWith(
         ipEth
           .reduceBalancedTree(_ +^ _)
@@ -136,7 +133,7 @@ case class EthernetTx(ethernetTxGenerics: EthernetTxGenerics) extends Component 
 
   val pipDataIn = Stream(Fragment(EthernetTxDataOut()))
 
-  pipDataIn << inputStream2
+  pipDataIn << io.dataIn
     .translateWith {
       val ret = Fragment(EthernetTxDataOut())
       ret.data  := io.dataIn.data
@@ -152,7 +149,7 @@ case class EthernetTx(ethernetTxGenerics: EthernetTxGenerics) extends Component 
     .m2sPipe()
 
   val muxOut      = Stream(Fragment(EthernetTxDataOut()))
-  val dataOutMux  = Vec(pipDataIn, headerStage.throwWhen(~muxOut.first))
+  val dataOutMux  = Vec(pipDataIn, headerStage)
   val muxSelWidth = log2Up(dataOutMux.length)
   val muxSel      = UInt(muxSelWidth bits)
 
