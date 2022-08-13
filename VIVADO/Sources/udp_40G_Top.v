@@ -1,5 +1,7 @@
+`define SIM
 module udp_40G_TOP
 (
+    input clk,
     input  [3 :0]   gt_rxp_in_40MAC_0               ,
     input  [3 :0]   gt_rxn_in_40MAC_0               ,
     output [3 :0]   gt_txp_out_40MAC_0              ,
