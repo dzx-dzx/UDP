@@ -34,8 +34,8 @@ class udp_40G_TOP() extends BlackBox {
   )
   addRTLPath("/home/dzx/Programming/High-speed-UDP-transport-protocol/VIVADO/Sources/TxFsm.v")
 
-  // addRTLPath("/home/dzx/Programming/High-speed-UDP-transport-protocol/rtl/EthernetTx.v")
-  // addRTLPath("/home/dzx/Programming/High-speed-UDP-transport-protocol/rtl/EthernetRx.v")
+  // addRTLPath("/home/dzx/Programming/High-speed-UDP-transport-protocol/Sources/EthernetTx.v")
+  // addRTLPath("/home/dzx/Programming/High-speed-UDP-transport-protocol/Sources/EthernetRx.v")
 
   addRTLPath("/home/dzx/Programming/High-speed-UDP-transport-protocol/VIVADO/Sources/EthernetTx.v")
   addRTLPath("/home/dzx/Programming/High-speed-UDP-transport-protocol/VIVADO/Sources/EthernetRx.v")
@@ -73,8 +73,8 @@ class TopLevel extends Component {
 
 object EthernetTestbench {
   def main(args: Array[String]): Unit = {
-    EthernetRxMain.main(Array(""))
-    EthernetTxMain.main(Array(""))
+    EthernetRxMain.main(Array("Sources"))
+    EthernetTxMain.main(Array("Sources"))
     SimConfig.withWave.withXSim
       // .addSimulatorFlag("-part xcvu13p-fhgb2104-2-i")
       // .addSimulatorFlag("-d SIM")
@@ -88,7 +88,7 @@ object EthernetTestbench {
         dut.io.gt_ref_clk_p_40MAC_0 #= 1.toBoolean
         dut.io.gt_ref_clk_p_40MAC_1 #= 1.toBoolean
         dut.io.sys_clk_p #= 1.toBoolean
-        for (_ <- 0 until 10000) {
+        for (_ <- 0 until 1) {
           fork {
             dut.clockDomain.waitSampling(48)
             dut.io.gt_ref_clk_p_40MAC_0 #= !dut.io.gt_ref_clk_p_40MAC_0.toBoolean

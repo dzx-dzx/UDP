@@ -3,8 +3,8 @@ package udp_master_stream
 import spinal.core.SpinalConfig
 
 object EthernetRxMain {
-  def main(args: Array[String]): Unit = {
-    SpinalConfig(targetDirectory = "rtl").dumpWave()
+  def main(args : Array[String] = Array("rtl")): Unit = {
+    SpinalConfig(targetDirectory = args(0)).dumpWave()
       .generateVerilog(
         EthernetRx(
           ethernetRxGenerics = EthernetRxGenerics(
