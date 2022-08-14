@@ -132,6 +132,9 @@ class RxTopTester:
 
         recv_data = udp_socket.recvfrom(65535)  #
         print(recv_data)
+        while recv_data[1][0]!="127.0.0.1":
+            recv_data = udp_socket.recvfrom(65535)
+            print(recv_data)
 
         data = recv_data[0]  # 存储接收到的数据
         msg = data[28:]
