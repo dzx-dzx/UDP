@@ -123,27 +123,19 @@ case class EthernetRx(ethernetRxGenerics: EthernetRxGenerics) extends Component 
   def EthUdpCheck(udp: UDPHeader): Bool = ~(udp.destPort === ethernetRxGenerics.destPort)
   // 校验包头各部分.
 
-  val ethMacCheck = Stream(EthernetRxDataEth())
-  ethMacCheck <-/< eth.throwWhen {
-    EthMacCheck(ethMacCheck.input.tkeep, ethMacCheck.eth.mac)
+  val ethCheck = Stream(EthernetRxDataEth())
+  ethCheck <-/< eth.throwWhen {
+    EthMacCheck(ethCheck.input.tkeep, ethCheck.eth.mac) ||
+    EthIpCheck(ethCheck.eth.ip) ||
+    EthUdpCheck(ethCheck.eth.udp)
   }
 
-  val ethIpCheck = Stream(EthernetRxDataEth())
-  ethIpCheck <-/< ethMacCheck.throwWhen(
-    EthIpCheck(ethIpCheck.eth.ip)
-  )
-
-  val ethUdpCheck = Stream(EthernetRxDataEth())
-  ethUdpCheck <-/< ethIpCheck.throwWhen(
-    EthUdpCheck(ethUdpCheck.eth.udp)
-  )
-
-  io.dataOut <-/< ethUdpCheck.translateWith {
-      val ret = Fragment(EthernetRxDataOut())
-      ret.tkeep := ethUdpCheck.input.tkeep
-      ret.data  := ethUdpCheck.input.data
-//    ret.byteNum := ethUdpCheck.eth.udpLength.asUInt - UDP_ETH_LENGTH
-      ret.last := ethUdpCheck.input.last
-      ret
-    }
+  io.dataOut <-/< ethCheck.translateWith {
+    val ret = Fragment(EthernetRxDataOut())
+    ret.tkeep := ethCheck.input.tkeep
+    ret.data  := ethCheck.input.data
+//    ret.byteNum := ethCheck.eth.udpLength.asUInt - UDP_ETH_LENGTH
+    ret.last := ethCheck.input.last
+    ret
+  }
 }
