@@ -5,12 +5,28 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Remote Attach",
+            "name": "Python: Remote Attach Tx",
             "type": "python",
             "request": "attach",
             "connect": {
                 "host": "localhost",
                 "port": 4000
+            },
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}",
+                    "remoteRoot": "${workspaceFolder}"
+                }
+            ],
+            "justMyCode": true
+        },
+        {
+            "name": "Python: Remote Attach Rx",
+            "type": "python",
+            "request": "attach",
+            "connect": {
+                "host": "localhost",
+                "port": 4001
             },
             "pathMappings": [
                 {
