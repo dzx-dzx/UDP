@@ -107,6 +107,16 @@ case class EthernetRx(ethernetRxGenerics: EthernetRxGenerics) extends Component 
       ret.eth         := inputEth.payload // 包传递完成前保持不变.
       ret
     }
+=======
+  )
+
+  def EthIpCheck(ip: IPHeader): Bool = ~(
+    ip.ttlProtocol((TTL_PROTOCOL_WIDTH / 2 - 1) downto 0) === PROTOCOL
+      && (ip.destIp === ethernetRxGenerics.destIp)
+  )
+
+  def EthUdpCheck(udp: UDPHeader): Bool = ~(udp.destPort === ethernetRxGenerics.destPort)
+  // 校验包头各部分.
 
   def EthMacCheck(tkeep: Bits, mac: MacHeader): Bool = ~(
     tkeep(KEEP_WIDTH - 1 downto KEEP_WIDTH - ETH_TOTAL_LENGTH) === B(ETH_TOTAL_LENGTH bits, default -> True)
@@ -117,7 +127,7 @@ case class EthernetRx(ethernetRxGenerics: EthernetRxGenerics) extends Component 
 
   def EthIpCheck(ip: IPHeader): Bool = ~(
     ip.ttlProtocol((TTL_PROTOCOL_WIDTH / 2 - 1) downto 0) === PROTOCOL
-      && (ip.destIp === ethernetRxGenerics.destIp)
+      && (ip.destIp === ethernetRxGenerics.destIp.ip)
   )
 
   def EthUdpCheck(udp: UDPHeader): Bool = ~(udp.destPort === ethernetRxGenerics.destPort)
