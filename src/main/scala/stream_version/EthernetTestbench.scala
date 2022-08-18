@@ -88,7 +88,7 @@ object EthernetTestbench {
         dut.io.gt_ref_clk_p_40MAC_0 #= 1.toBoolean
         dut.io.gt_ref_clk_p_40MAC_1 #= 1.toBoolean
         dut.io.sys_clk_p #= 1.toBoolean
-        for (_ <- 0 until 1) {
+        for (_ <- 0 until 100000) {
           fork {
             dut.clockDomain.waitSampling(48)
             dut.io.gt_ref_clk_p_40MAC_0 #= !dut.io.gt_ref_clk_p_40MAC_0.toBoolean
