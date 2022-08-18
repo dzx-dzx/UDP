@@ -64,15 +64,11 @@ case class EthernetRx(ethernetRxGenerics: EthernetRxGenerics) extends Component 
     new Composite(inputStream, "RespVerifier_companyExtractFunc") {
       val result = Flow(EthernetRxDataIn())
       result.payload := io.dataIn.payload
-      when(inputStream.first) {
-        result.valid := inputStream.fire
-      } otherwise {
-        result.valid := False
-      }
+      result.valid   := inputStream.isFirst
     }.result
   // 提取包头数据并维持在处理整个包时有效, 直到下一个包头.
 
-  val dataInExtractCompany = StreamExtractCompany(io.dataIn, companyExtractFunc)
+  val dataInExtractCompany = StreamExtractCompany(io.dataIn, companyExtractFunc).throwWhen(io.dataIn.first)
 
   val (dataInExtractCompany1, dataInExtractCompany2) = StreamFork2(
     dataInExtractCompany
@@ -134,18 +130,24 @@ case class EthernetRx(ethernetRxGenerics: EthernetRxGenerics) extends Component 
   // 校验包头各部分.
 
   val ethCheck = Stream(EthernetRxDataEth())
-  ethCheck <-/< eth.throwWhen {
-    EthMacCheck(ethCheck.input.tkeep, ethCheck.eth.mac) ||
-    EthIpCheck(ethCheck.eth.ip) ||
-    EthUdpCheck(ethCheck.eth.udp)
-  }
+  ethCheck <-/< eth
 
-  io.dataOut <-/< ethCheck.translateWith {
-    val ret = Fragment(EthernetRxDataOut())
-    ret.tkeep := ethCheck.input.tkeep
-    ret.data  := ethCheck.input.data
+  io.dataOut <-/< ((ethCheck
+    .throwWhen {
+      report(L"At $REPORT_TIME, while processing${ethCheck.payload.input.data} EthMacCheck:${EthMacCheck(
+        ethCheck.input.tkeep,
+        ethCheck.eth.mac
+      )} EthIpCheck:${EthIpCheck(ethCheck.eth.ip)} EthUdpCheck:${EthUdpCheck(ethCheck.eth.udp)}".toSeq)
+      EthMacCheck(ethCheck.input.tkeep, ethCheck.eth.mac) ||
+      EthIpCheck(ethCheck.eth.ip) ||
+      EthUdpCheck(ethCheck.eth.udp)
+    })
+    .translateWith {
+      val ret = Fragment(EthernetRxDataOut())
+      ret.tkeep := ethCheck.input.tkeep
+      ret.data  := ethCheck.input.data
 //    ret.byteNum := ethCheck.eth.udpLength.asUInt - UDP_ETH_LENGTH
-    ret.last := ethCheck.input.last
-    ret
-  }
+      ret.last := ethCheck.input.last
+      ret
+    })
 }
