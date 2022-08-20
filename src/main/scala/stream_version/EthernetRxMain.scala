@@ -4,7 +4,7 @@ import spinal.core.SpinalConfig
 
 object EthernetRxMain {
   def main(args : Array[String] = Array("rtl")): Unit = {
-    SpinalConfig(targetDirectory = args(0)).dumpWave()
+    SpinalConfig(targetDirectory = args(0))//.dumpWave()
       .generateVerilog(
         EthernetRx(
           ethernetRxGenerics = EthernetRxGenerics(
