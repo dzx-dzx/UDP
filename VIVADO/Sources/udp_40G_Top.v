@@ -13,12 +13,28 @@ module udp_40G_TOP
     input           gt_ref_clk_n_40MAC_0            ,
                         
     input  wire     sys_clk_p,
-    input  wire     sys_clk_n
+    input  wire     sys_clk_n,
+    output wire     pkt_clk,
 
+    input              fsm_dataOut_valid_0,
+    output             fsm_dataOut_ready_0,
+    input              fsm_dataOut_payload_last_0,
+    input     [511:0]  fsm_dataOut_payload_fragment_data_0,
+    input     [15:0]   fsm_dataOut_payload_fragment_byteNum_0,
+    input     [63:0]   fsm_dataOut_payload_fragment_tkeep_0,
+
+    output             rx_dataOut_valid_0,
+    output             rx_dataOut_ready_0,
+    output             rx_dataOut_payload_last_0,
+    output  [511:0]    rx_dataOut_payload_fragment_data_0,
+    output  [15:0]     rx_dataOut_payload_fragment_byteNum_0,
+    output  [15:0]     rx_dataOut_payload_fragment_errorCnt_0,
+    output             rx_dataOut_payload_fragment_errorFlag_0,
+    output  [63:0]     rx_dataOut_payload_fragment_tkeep_0
 );
 
     wire dclk;
-    wire pkt_clk;
+    // wire pkt_clk;
     wire locked;
 
 
@@ -85,12 +101,12 @@ wire sys_reset;
 
 
 
-    wire          fsm_dataOut_valid_0;
-    wire          fsm_dataOut_ready_0;
-    wire          fsm_dataOut_payload_last_0;
-    wire [511:0]  fsm_dataOut_payload_fragment_data_0;
-    wire [15:0]   fsm_dataOut_payload_fragment_byteNum_0;
-    wire [63:0]   fsm_dataOut_payload_fragment_tkeep_0;
+    // wire          fsm_dataOut_valid_0;
+    // wire          fsm_dataOut_ready_0;
+    // wire          fsm_dataOut_payload_last_0;
+    // wire [511:0]  fsm_dataOut_payload_fragment_data_0;
+    // wire [15:0]   fsm_dataOut_payload_fragment_byteNum_0;
+    // wire [63:0]   fsm_dataOut_payload_fragment_tkeep_0;
 
 
     
@@ -109,16 +125,16 @@ wire sys_reset;
 
 
 
-    TxFsm inst_TxFsm_0(
-      .io_dataOut_valid                    (fsm_dataOut_valid_0),
-      .io_dataOut_ready                    (fsm_dataOut_ready_0),
-      .io_dataOut_payload_last             (fsm_dataOut_payload_last_0),
-      .io_dataOut_payload_fragment_data    (fsm_dataOut_payload_fragment_data_0),
-      .io_dataOut_payload_fragment_byteNum (fsm_dataOut_payload_fragment_byteNum_0),
-      .io_dataOut_payload_fragment_tkeep   (fsm_dataOut_payload_fragment_tkeep_0),
-      .clk                                 (pkt_clk),
-      .reset                               (sys_reset)
-    );
+    // TxFsm inst_TxFsm_0(
+    //   .io_dataOut_valid                    (fsm_dataOut_valid_0),
+    //   .io_dataOut_ready                    (fsm_dataOut_ready_0),
+    //   .io_dataOut_payload_last             (fsm_dataOut_payload_last_0),
+    //   .io_dataOut_payload_fragment_data    (fsm_dataOut_payload_fragment_data_0),
+    //   .io_dataOut_payload_fragment_byteNum (fsm_dataOut_payload_fragment_byteNum_0),
+    //   .io_dataOut_payload_fragment_tkeep   (fsm_dataOut_payload_fragment_tkeep_0),
+    //   .clk                                 (pkt_clk),
+    //   .reset                               (sys_reset)
+    // );
 
      EthernetTx inst_EthernetTx_0(
       .io_dataIn_valid                    (fsm_dataOut_valid_0),
