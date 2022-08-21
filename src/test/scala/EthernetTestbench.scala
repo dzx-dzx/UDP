@@ -183,48 +183,49 @@ class EthernetTestbench extends AnyFunSuite {
 
       fork {
         for (_ <- 0 until 1000000) {
-          dut.packetClockDomain.waitSampling()
           val io = dut.io
+          dut.packetClockDomain.waitRisingEdge()
+          io.fsm_dataOut_valid_0 #= 1.toBoolean
 
-          fork {
-            io.fsm_dataOut_valid_0 #= 1.toBoolean
-
-            if (
-              io.fsm_dataOut_valid_0.toBoolean && io.fsm_dataOut_ready_0.toBoolean
-            ) {
-              stimulusFragment.enqueue(
-                io.fsm_dataOut_payload_fragment_data_0.toBigInt.toString(16)
-              )
-              if (io.fsm_dataOut_payload_last_0.toBoolean) {
-                val stimulus = extractDataFromFragments(stimulusFragment)
-                scoreboard.enqueue(stimulus)
-                println(Console.RED + s"Stimulus:\n${stimulus}")
-              }
-              io.fsm_dataOut_payload_last_0.randomize()
-              io.fsm_dataOut_payload_fragment_data_0.randomize()
+          if (
+            io.fsm_dataOut_valid_0.toBoolean && io.fsm_dataOut_ready_0.toBoolean
+          ) {
+            stimulusFragment.enqueue(
+              io.fsm_dataOut_payload_fragment_data_0.toBigInt.toString(16)
+            )
+            if (io.fsm_dataOut_payload_last_0.toBoolean) {
+              val stimulus = extractDataFromFragments(stimulusFragment)
+              scoreboard.enqueue(stimulus)
+              println(Console.RED + s"Stimulus:\n${stimulus}")
             }
-          }
-          fork {
-            io.rx_dataOut_ready_0 #= 1.toBoolean
-
-            if (
-              io.rx_dataOut_valid_0.toBoolean && io.rx_dataOut_ready_0.toBoolean
-            ) {
-              outputFragment.enqueue(
-                io.rx_dataOut_payload_fragment_data_0.toBigInt.toString(16)
-              )
-              if (io.rx_dataOut_payload_last_0.toBoolean) {
-                val output = extractDataFromFragments(outputFragment)
-                println(Console.BLUE + s"Output:\n${output}")
-                // assert(
-                //   scoreboard.nonEmpty && scoreboard.dequeue().equals(output)
-                // )
-              }
-            }
-
+            io.fsm_dataOut_payload_last_0.randomize()
+            io.fsm_dataOut_payload_fragment_data_0.randomize()
           }
         }
       }
+      fork {
+        for (_ <- 0 until 1000000) {
+          val io = dut.io
+          dut.packetClockDomain.waitRisingEdge()
+          io.rx_dataOut_ready_0 #= 1.toBoolean
+
+          if (
+            io.rx_dataOut_valid_0.toBoolean && io.rx_dataOut_ready_0.toBoolean
+          ) {
+            outputFragment.enqueue(
+              io.rx_dataOut_payload_fragment_data_0.toBigInt.toString(16)
+            )
+            if (io.rx_dataOut_payload_last_0.toBoolean) {
+              val output = extractDataFromFragments(outputFragment)
+              println(Console.BLUE + s"Output:\n${output}")
+              // assert(
+              //   scoreboard.nonEmpty && scoreboard.dequeue().equals(output)
+              // )
+            }
+          }
+        }
+      }
+
       dut.clockDomain.waitSampling(250000000)
 
       simSuccess()
