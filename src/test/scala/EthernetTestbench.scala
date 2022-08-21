@@ -140,7 +140,31 @@ class EthernetTestbench extends AnyFunSuite {
 
   test("testbench") {
     compiled.doSim(dut => {
-      dut.clockDomain.forkStimulus(period = 2)
+      fork {
+        dut.clockDomain.fallingEdge()
+        while (true) {
+          dut.clockDomain.clockToggle()
+          sleep(1)
+        }
+      }
+      fork {
+        while (true) {
+          dut.clockDomain.waitRisingEdge()
+          dut.io.gt_ref_clk_p_40MAC_0 #= !dut.io.gt_ref_clk_p_40MAC_0.toBoolean
+        }
+      }
+      fork {
+        while (true) {
+          dut.clockDomain.waitRisingEdge()
+          dut.io.sys_clk_p #= !dut.io.sys_clk_p.toBoolean
+        }
+      }
+      fork {
+        dut.clockDomain.assertReset()
+        sleep(1000)
+        dut.clockDomain.deassertReset()
+      }
+      dut.clockDomain.forkSimSpeedPrinter()
       dut.io.gt_ref_clk_p_40MAC_0 #= 1.toBoolean
       dut.io.sys_clk_p #= 1.toBoolean
 
@@ -153,29 +177,17 @@ class EthernetTestbench extends AnyFunSuite {
         ret
       }
       dut.io.fsm_dataOut_payload_last_0 #= false
+      dut.io.fsm_dataOut_payload_fragment_data_0 #= 0
       // dut.io.fsm_dataOut_payload_fragment_byteNum_0 #= BigInt("0064", 16)
       // dut.io.fsm_dataOut_payload_fragment_tkeep_0 #= BigInt("FFFFFFFFFFFFFFFF", 16)
 
       fork {
         for (_ <- 0 until 1000000) {
-          dut.clockDomain.waitSampling()
-          fork {
-            dut.clockDomain.waitSampling(48)
-            dut.io.gt_ref_clk_p_40MAC_0 #= !dut.io.gt_ref_clk_p_40MAC_0.toBoolean
-          }
-          fork {
-            dut.clockDomain.waitSampling(25)
-            dut.io.sys_clk_p #= !dut.io.sys_clk_p.toBoolean
-          }
-        }
-      }
-      fork {
-        for (_ <- 0 until 1000000) {
-          dut.packetClockDomain.waitRisingEdge()
+          dut.packetClockDomain.waitSampling()
           val io = dut.io
 
           fork {
-            io.fsm_dataOut_valid_0.randomize()
+            io.fsm_dataOut_valid_0 #= 1.toBoolean
 
             if (
               io.fsm_dataOut_valid_0.toBoolean && io.fsm_dataOut_ready_0.toBoolean
@@ -193,7 +205,7 @@ class EthernetTestbench extends AnyFunSuite {
             }
           }
           fork {
-            io.rx_dataOut_ready_0.randomize()
+            io.rx_dataOut_ready_0 #= 1.toBoolean
 
             if (
               io.rx_dataOut_valid_0.toBoolean && io.rx_dataOut_ready_0.toBoolean
@@ -212,7 +224,9 @@ class EthernetTestbench extends AnyFunSuite {
 
           }
         }
-      }.join()
+      }
+      dut.clockDomain.waitSampling(250000000)
+
       simSuccess()
     })
   }
