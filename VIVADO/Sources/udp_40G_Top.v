@@ -24,7 +24,7 @@ module udp_40G_TOP
     input     [63:0]   fsm_dataOut_payload_fragment_tkeep_0,
 
     output             rx_dataOut_valid_0,
-    output             rx_dataOut_ready_0,
+    input              rx_dataOut_ready_0,
     output             rx_dataOut_payload_last_0,
     output  [511:0]    rx_dataOut_payload_fragment_data_0,
     output  [15:0]     rx_dataOut_payload_fragment_byteNum_0,
