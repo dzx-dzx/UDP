@@ -147,18 +147,8 @@ class EthernetTestbench extends AnyFunSuite {
           sleep(1)
         }
       }
-      fork {
-        while (true) {
-          dut.clockDomain.waitRisingEdge()
-          dut.io.gt_ref_clk_p_40MAC_0 #= !dut.io.gt_ref_clk_p_40MAC_0.toBoolean
-        }
-      }
-      fork {
-        while (true) {
-          dut.clockDomain.waitRisingEdge()
-          dut.io.sys_clk_p #= !dut.io.sys_clk_p.toBoolean
-        }
-      }
+      ClockDomain(dut.io.gt_ref_clk_p_40MAC_0).forkStimulus(48) 
+      ClockDomain(dut.io.sys_clk_p).forkStimulus(25) 
       fork {
         dut.clockDomain.assertReset()
         sleep(1000)
