@@ -39,28 +39,16 @@ class udp_40G_TOP() extends BlackBox {
   noIoPrefix()
   mapCurrentClockDomain(clock = io.clk, reset = io.sys_reset)
 
-  addRTLPath(
-    "/home/dzx/Programming/High-speed-UDP-transport-protocol/VIVADO/Sources/udp_40G_Top.v"
-  )
-  addRTLPath(
-    "/home/dzx/Programming/High-speed-UDP-transport-protocol/VIVADO/Sources/l_ethernet_0_exdes.v"
-  )
-  addRTLPath(
-    "/home/dzx/Programming/High-speed-UDP-transport-protocol/VIVADO/Sources/l_ethernet_0_mac_baser_syncer_reset.v"
-  )
-  addRTLPath(
-    "/home/dzx/Programming/High-speed-UDP-transport-protocol/VIVADO/Sources/TxFsm.v"
-  )
+  addRTLPath("./VIVADO/Sources/udp_40G_Top.v")
+  addRTLPath("./VIVADO/Sources/l_ethernet_0_exdes.v")
+  addRTLPath("./VIVADO/Sources/l_ethernet_0_mac_baser_syncer_reset.v")
+  addRTLPath("./VIVADO/Sources/TxFsm.v")
 
-  // addRTLPath("/home/dzx/Programming/High-speed-UDP-transport-protocol/Sources/EthernetTx.v")
-  // addRTLPath("/home/dzx/Programming/High-speed-UDP-transport-protocol/Sources/EthernetRx.v")
+  addRTLPath("./Sources/EthernetTx.v")
+  // addRTLPath("./Sources/EthernetRx.v")
 
-  addRTLPath(
-    "/home/dzx/Programming/High-speed-UDP-transport-protocol/VIVADO/Sources/EthernetTx.v"
-  )
-  addRTLPath(
-    "/home/dzx/Programming/High-speed-UDP-transport-protocol/VIVADO/Sources/EthernetRx.v"
-  )
+  // addRTLPath("./VIVADO/Sources/EthernetTx.v")
+  addRTLPath("./VIVADO/Sources/EthernetRx.v")
 }
 
 class TopLevel extends Component {
@@ -131,7 +119,7 @@ class EthernetTestbench extends AnyFunSuite {
       // .addSimulatorFlag("-d SIM")
       .withXSimSourcesPaths(
         ArrayBuffer(
-          "/home/dzx/Programming/High-speed-UDP-transport-protocol/VIVADO/Sources/ip/"
+          "./VIVADO/Sources/ip/"
         ),
         ArrayBuffer("")
       )
