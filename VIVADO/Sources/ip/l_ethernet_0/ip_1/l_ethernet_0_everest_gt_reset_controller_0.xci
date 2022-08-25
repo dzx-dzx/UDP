@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spirit:design xmlns:xilinx="http://www.xilinx.com" xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <spirit:vendor>xilinx.com</spirit:vendor>
+  <spirit:library>xci</spirit:library>
+  <spirit:name>unknown</spirit:name>
+  <spirit:version>1.0</spirit:version>
+  <spirit:componentInstances>
+    <spirit:componentInstance>
+      <spirit:instanceName>l_ethernet_0_everest_gt_reset_controller_0</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="xilinx.com" spirit:library="ip" spirit:name="gt_reset_ip" spirit:version="1.1"/>
+      <spirit:configurableElementValues>
+        <spirit:configurableElementValue spirit:referenceId="MODELPARAM_VALUE.MASTER_RESET_EN">1</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="MODELPARAM_VALUE.P_FREERUN_FREQUENCY">100.00</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="MODELPARAM_VALUE.P_RX_LINE_RATE">10.3125</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="MODELPARAM_VALUE.P_RX_PLL_TYPE">0</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="MODELPARAM_VALUE.P_TX_PLL_TYPE">0</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="PARAM_VALUE.Component_Name">l_ethernet_0_everest_gt_reset_controller_0</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="PARAM_VALUE.MASTER_RESET_EN">1</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="PARAM_VALUE.P_FREERUN_FREQUENCY">100.00</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="PARAM_VALUE.P_RX_LINE_RATE">10.3125</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="PARAM_VALUE.P_RX_PLL_TYPE">0</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="PARAM_VALUE.P_TX_PLL_TYPE">0</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="PROJECT_PARAM.ARCHITECTURE">virtexuplus</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="PROJECT_PARAM.BASE_BOARD_PART"/>
+        <spirit:configurableElementValue spirit:referenceId="PROJECT_PARAM.BOARD_CONNECTIONS"/>
+        <spirit:configurableElementValue spirit:referenceId="PROJECT_PARAM.DEVICE">xcvu13p</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="PROJECT_PARAM.PACKAGE">fhgb2104</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="PROJECT_PARAM.PREFHDL">VERILOG</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="PROJECT_PARAM.SILICON_REVISION"/>
+        <spirit:configurableElementValue spirit:referenceId="PROJECT_PARAM.SIMULATOR_LANGUAGE">MIXED</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="PROJECT_PARAM.SPEEDGRADE">-2</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="PROJECT_PARAM.STATIC_POWER"/>
+        <spirit:configurableElementValue spirit:referenceId="PROJECT_PARAM.TEMPERATURE_GRADE">I</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="PROJECT_PARAM.USE_RDI_CUSTOMIZATION">TRUE</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="PROJECT_PARAM.USE_RDI_GENERATION">TRUE</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="RUNTIME_PARAM.IPCONTEXT">IP_Flow</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="RUNTIME_PARAM.IPREVISION">2</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="RUNTIME_PARAM.MANAGED">TRUE</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="RUNTIME_PARAM.OUTPUTDIR">.</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="RUNTIME_PARAM.SELECTEDSIMMODEL"/>
+        <spirit:configurableElementValue spirit:referenceId="RUNTIME_PARAM.SHAREDDIR">.</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="RUNTIME_PARAM.SWVERSION">2022.1</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="RUNTIME_PARAM.SYNTHESISFLOW">GLOBAL</spirit:configurableElementValue>
+      </spirit:configurableElementValues>
+      <spirit:vendorExtensions>
+        <xilinx:componentInstanceExtensions>
+          <xilinx:configElementInfos>
+            <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.MASTER_RESET_EN" xilinx:valueSource="propagated"/>
+            <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.P_FREERUN_FREQUENCY" xilinx:valueSource="propagated"/>
+            <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.P_RX_LINE_RATE" xilinx:valueSource="propagated"/>
+            <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.P_TX_PLL_TYPE" xilinx:valueSource="propagated"/>
+          </xilinx:configElementInfos>
+          <xilinx:boundaryDescriptionInfo>
+            <xilinx:boundaryDescription xilinx:boundaryDescriptionJSON="{
+              &quot;schema&quot;: &quot;xilinx.com:schema:json_boundary:1.0&quot;,
+              &quot;boundary&quot;: {
+                &quot;ports&quot;: {
+                  &quot;gtwiz_reset_clk_freerun_in&quot;: [ { &quot;direction&quot;: &quot;in&quot; } ],
+                  &quot;gtwiz_reset_all_in&quot;: [ { &quot;direction&quot;: &quot;in&quot; } ],
+                  &quot;gtwiz_reset_tx_pll_and_datapath_in&quot;: [ { &quot;direction&quot;: &quot;in&quot; } ],
+                  &quot;gtwiz_reset_tx_datapath_in&quot;: [ { &quot;direction&quot;: &quot;in&quot; } ],
+                  &quot;gtwiz_reset_rx_pll_and_datapath_in&quot;: [ { &quot;direction&quot;: &quot;in&quot; } ],
+                  &quot;gtwiz_reset_rx_datapath_in&quot;: [ { &quot;direction&quot;: &quot;in&quot; } ],
+                  &quot;gtwiz_reset_rx_cdr_stable_out&quot;: [ { &quot;direction&quot;: &quot;out&quot; } ],
+                  &quot;gtwiz_reset_tx_done_out&quot;: [ { &quot;direction&quot;: &quot;out&quot; } ],
+                  &quot;gtwiz_reset_rx_done_out&quot;: [ { &quot;direction&quot;: &quot;out&quot; } ],
+                  &quot;gtwiz_reset_userclk_tx_active_in&quot;: [ { &quot;direction&quot;: &quot;in&quot; } ],
+                  &quot;gtwiz_reset_userclk_rx_active_in&quot;: [ { &quot;direction&quot;: &quot;in&quot; } ],
+                  &quot;gtpowergood_in&quot;: [ { &quot;direction&quot;: &quot;in&quot; } ],
+                  &quot;txusrclk2_in&quot;: [ { &quot;direction&quot;: &quot;in&quot; } ],
+                  &quot;ilo_reset_done&quot;: [ { &quot;direction&quot;: &quot;in&quot; } ],
+                  &quot;plllock_tx_in&quot;: [ { &quot;direction&quot;: &quot;in&quot; } ],
+                  &quot;txresetdone_in&quot;: [ { &quot;direction&quot;: &quot;in&quot; } ],
+                  &quot;rxusrclk2_in&quot;: [ { &quot;direction&quot;: &quot;in&quot; } ],
+                  &quot;plllock_rx_in&quot;: [ { &quot;direction&quot;: &quot;in&quot; } ],
+                  &quot;rxcdrlock_in&quot;: [ { &quot;direction&quot;: &quot;in&quot; } ],
+                  &quot;rxresetdone_in&quot;: [ { &quot;direction&quot;: &quot;in&quot; } ],
+                  &quot;pllreset_tx_out&quot;: [ { &quot;direction&quot;: &quot;out&quot;, &quot;driver_value&quot;: &quot;0x0&quot; } ],
+                  &quot;txprogdivreset_out&quot;: [ { &quot;direction&quot;: &quot;out&quot; } ],
+                  &quot;iloreset_out&quot;: [ { &quot;direction&quot;: &quot;out&quot;, &quot;driver_value&quot;: &quot;0x0&quot; } ],
+                  &quot;mst_tx_reset&quot;: [ { &quot;direction&quot;: &quot;out&quot;, &quot;driver_value&quot;: &quot;0x0&quot; } ],
+                  &quot;mst_rx_reset&quot;: [ { &quot;direction&quot;: &quot;out&quot;, &quot;driver_value&quot;: &quot;0x0&quot; } ],
+                  &quot;mst_tx_dp_reset&quot;: [ { &quot;direction&quot;: &quot;out&quot;, &quot;driver_value&quot;: &quot;0x0&quot; } ],
+                  &quot;mst_rx_dp_reset&quot;: [ { &quot;direction&quot;: &quot;out&quot;, &quot;driver_value&quot;: &quot;0x0&quot; } ],
+                  &quot;mst_tx_resetdone&quot;: [ { &quot;direction&quot;: &quot;in&quot; } ],
+                  &quot;mst_rx_resetdone&quot;: [ { &quot;direction&quot;: &quot;in&quot; } ],
+                  &quot;pcie_enable&quot;: [ { &quot;direction&quot;: &quot;in&quot; } ],
+                  &quot;pcie_rstb_out&quot;: [ { &quot;direction&quot;: &quot;out&quot;, &quot;driver_value&quot;: &quot;0x0&quot; } ],
+                  &quot;gttxreset_out&quot;: [ { &quot;direction&quot;: &quot;out&quot;, &quot;driver_value&quot;: &quot;0x1&quot; } ],
+                  &quot;txuserrdy_out&quot;: [ { &quot;direction&quot;: &quot;out&quot;, &quot;driver_value&quot;: &quot;0x0&quot; } ],
+                  &quot;pllreset_rx_out&quot;: [ { &quot;direction&quot;: &quot;out&quot; } ],
+                  &quot;rxprogdivreset_out&quot;: [ { &quot;direction&quot;: &quot;out&quot;, &quot;driver_value&quot;: &quot;0x1&quot; } ],
+                  &quot;gtrxreset_out&quot;: [ { &quot;direction&quot;: &quot;out&quot;, &quot;driver_value&quot;: &quot;0x1&quot; } ],
+                  &quot;rxuserrdy_out&quot;: [ { &quot;direction&quot;: &quot;out&quot;, &quot;driver_value&quot;: &quot;0x0&quot; } ],
+                  &quot;tx_enabled_tie_in&quot;: [ { &quot;direction&quot;: &quot;in&quot; } ],
+                  &quot;rx_enabled_tie_in&quot;: [ { &quot;direction&quot;: &quot;in&quot; } ],
+                  &quot;shared_pll_tie_in&quot;: [ { &quot;direction&quot;: &quot;in&quot; } ]
+                }
+              }
+            }"/>
+          </xilinx:boundaryDescriptionInfo>
+        </xilinx:componentInstanceExtensions>
+      </spirit:vendorExtensions>
+    </spirit:componentInstance>
+  </spirit:componentInstances>
+</spirit:design>

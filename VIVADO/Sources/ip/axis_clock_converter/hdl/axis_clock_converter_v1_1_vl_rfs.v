@@ -60,7 +60,7 @@
 `default_nettype none
 
 (* DowngradeIPIdentifiedWarnings="yes" *)
-module axis_clock_converter_v1_1_20_axisc_sync_clock_converter # (
+module axis_clock_converter_v1_1_27_axisc_sync_clock_converter # (
 ///////////////////////////////////////////////////////////////////////////////
 // Parameter Definitions
 ///////////////////////////////////////////////////////////////////////////////
@@ -338,7 +338,7 @@ endmodule // axisc_sync_clock_converter
 `default_nettype none
 
 (* DowngradeIPIdentifiedWarnings="yes" *)
-module axis_clock_converter_v1_1_20_axisc_async_clock_converter # (
+module axis_clock_converter_v1_1_27_axisc_async_clock_converter # (
 ///////////////////////////////////////////////////////////////////////////////
 // Parameter Definitions
 ///////////////////////////////////////////////////////////////////////////////
@@ -771,7 +771,7 @@ endmodule // axisc_async_clock_converter
 `default_nettype none
 
 (* DowngradeIPIdentifiedWarnings="yes" *)
-module axis_clock_converter_v1_1_20_axisc_sample_cycle_ratio # (
+module axis_clock_converter_v1_1_27_axisc_sample_cycle_ratio # (
 ///////////////////////////////////////////////////////////////////////////////
 // Parameter Definitions
 ///////////////////////////////////////////////////////////////////////////////
@@ -922,7 +922,7 @@ endmodule // axisc_sample_cycle_ratio
 `default_nettype none
 
 (* DowngradeIPIdentifiedWarnings="yes" *)
-module axis_clock_converter_v1_1_20_axis_clock_converter #
+module axis_clock_converter_v1_1_27_axis_clock_converter #
 (
 ///////////////////////////////////////////////////////////////////////////////
 // Parameter Definitions
@@ -1081,7 +1081,7 @@ generate
 
   if (P_INST_ASYNC_CONV) begin : gen_async_conv
     // Use xpm_fifo in 2018.1+ for future part support.
-    axis_clock_converter_v1_1_20_axisc_async_clock_converter #( 
+    axis_clock_converter_v1_1_27_axisc_async_clock_converter #( 
       .C_PAYLOAD_WIDTH      ( P_TPAYLOAD_WIDTH     ) ,
       .C_FIFO_DEPTH         ( P_FIFO_DEPTH         ) ,
       .C_SYNCHRONIZER_STAGE ( C_SYNCHRONIZER_STAGE ) 
@@ -1112,7 +1112,7 @@ generate
     assign slow_aclk   = (C_S_AXIS_ACLK_RATIO > C_M_AXIS_ACLK_RATIO) ? m_axis_aclk   : s_axis_aclk;
     assign fast_aclk   = (C_S_AXIS_ACLK_RATIO < C_M_AXIS_ACLK_RATIO) ? m_axis_aclk   : s_axis_aclk;
 
-    axis_clock_converter_v1_1_20_axisc_sample_cycle_ratio #(
+    axis_clock_converter_v1_1_27_axisc_sample_cycle_ratio #(
       .C_RATIO ( P_SAMPLE_CYCLE_RATIO )
     ) 
     axisc_sample_cycle_ratio_m (
@@ -1122,7 +1122,7 @@ generate
       .SAMPLE_CYCLE       ( sample_cycle       ) 
     );
 
-    axis_clock_converter_v1_1_20_axisc_sync_clock_converter #( 
+    axis_clock_converter_v1_1_27_axisc_sync_clock_converter #( 
       .C_FAMILY        ( C_FAMILY            ) ,
       .C_PAYLOAD_WIDTH ( P_TPAYLOAD_WIDTH    ) ,
       .C_S_ACLK_RATIO  ( P_S_AXIS_ACLK_RATIO ) ,

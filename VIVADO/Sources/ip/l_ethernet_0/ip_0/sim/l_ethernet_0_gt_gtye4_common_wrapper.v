@@ -163,7 +163,7 @@ module l_ethernet_0_gt_gtye4_common_wrapper (
 
 
 
-gtwizard_ultrascale_v1_7_6_gtye4_common #(
+gtwizard_ultrascale_v1_7_13_gtye4_common #(
   .GTYE4_COMMON_AEN_QPLL0_FBDIV                 (1'b1),
   .GTYE4_COMMON_AEN_QPLL1_FBDIV                 (1'b1),
   .GTYE4_COMMON_AEN_SDM0TOGGLE                  (1'b0),

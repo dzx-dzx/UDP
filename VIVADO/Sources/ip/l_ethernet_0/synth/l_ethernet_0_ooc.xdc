@@ -1,5 +1,5 @@
 #------------------------------------------------------------------------------
-#  (c) Copyright 2015 Xilinx, Inc. All rights reserved.
+#  (c) Copyright 2020-2021 Xilinx, Inc. All rights reserved.
 #
 #  This file contains confidential and proprietary information
 #  of Xilinx, Inc. and is protected under U.S. and
@@ -46,6 +46,8 @@
 #  PART OF THIS FILE AT ALL TIMES.
 #------------------------------------------------------------------------------
 
+#------------------------------------------------------------------------------
+
 
 # ----------------------------------------------------------------------------------------------------------------------
 # core-level XDC file for out-of-context flows
@@ -65,6 +67,8 @@ create_clock -period 10.000 [get_ports dclk]
 set_property HD.CLK_SRC BUFGCTRL_X0Y2  [get_ports dclk]
 
 
+
+
 create_clock -period 6.400 [get_ports gt_refclk_p]
 
 
@@ -76,8 +80,6 @@ set_max_delay -from [get_clocks -of_objects [get_pins -hierarchical -filter {NAM
 set_max_delay -from [get_clocks -of_objects [get_pins -hierarchical -filter {NAME =~ */channel_inst/*_CHANNEL_PRIM_INST/TXOUTCLK}]] -to [get_clocks dclk] -datapath_only 3.20
 set_max_delay -from [get_clocks dclk] -to [get_clocks -of_objects [get_pins -hierarchical -filter {NAME =~ */channel_inst/*_CHANNEL_PRIM_INST/TXOUTCLK}]] -datapath_only 10.000
 set_max_delay -from [get_clocks dclk] -to [get_clocks -of_objects [get_pins -hierarchical -filter {NAME =~ */channel_inst/*_CHANNEL_PRIM_INST/RXOUTCLK}]] -datapath_only 10.000
-
-
 
 
 

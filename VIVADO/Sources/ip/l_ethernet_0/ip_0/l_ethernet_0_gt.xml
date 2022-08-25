@@ -10,11 +10,11 @@
         <spirit:name>xilinx_elaborateports</spirit:name>
         <spirit:displayName>Elaborate Ports</spirit:displayName>
         <spirit:envIdentifier>:vivado.xilinx.com:elaborate.ports</spirit:envIdentifier>
-        <spirit:modelName>gtwizard_ultrascale_v1_7_6_gtwizard_ultrascale</spirit:modelName>
+        <spirit:modelName>gtwizard_ultrascale_v1_7_13_gtwizard_ultrascale</spirit:modelName>
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:311c0168</spirit:value>
+            <spirit:value>9:79a83cf2</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -30,11 +30,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Sun Aug 07 04:20:09 UTC 2022</spirit:value>
+            <spirit:value>Tue Aug 23 19:46:46 UTC 2022</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:22765867</spirit:value>
+            <spirit:value>9:22d51c21</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -45,7 +45,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:22765867</spirit:value>
+            <spirit:value>9:22d51c21</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -61,11 +61,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Sun Aug 07 04:20:09 UTC 2022</spirit:value>
+            <spirit:value>Tue Aug 23 19:46:46 UTC 2022</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:22765867</spirit:value>
+            <spirit:value>9:22d51c21</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -81,11 +81,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Sun Aug 07 04:22:36 UTC 2022</spirit:value>
+            <spirit:value>Tue Aug 23 19:46:48 UTC 2022</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:20998765</spirit:value>
+            <spirit:value>9:ccd992d2</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -101,11 +101,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Sun Aug 07 04:22:36 UTC 2022</spirit:value>
+            <spirit:value>Tue Aug 23 19:46:48 UTC 2022</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:20998765</spirit:value>
+            <spirit:value>9:ccd992d2</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -15045,11 +15045,6 @@
       <spirit:enumeration>128</spirit:enumeration>
     </spirit:choice>
     <spirit:choice>
-      <spirit:name>choice_list_13717074</spirit:name>
-      <spirit:enumeration>-20</spirit:enumeration>
-      <spirit:enumeration>-40</spirit:enumeration>
-    </spirit:choice>
-    <spirit:choice>
       <spirit:name>choice_list_190b0326</spirit:name>
       <spirit:enumeration>X1Y40</spirit:enumeration>
       <spirit:enumeration>X1Y41</spirit:enumeration>
@@ -15232,6 +15227,10 @@
       <spirit:enumeration>13</spirit:enumeration>
       <spirit:enumeration>14</spirit:enumeration>
       <spirit:enumeration>15</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>choice_list_bf3f30a9</spirit:name>
+      <spirit:enumeration>-20</spirit:enumeration>
     </spirit:choice>
     <spirit:choice>
       <spirit:name>choice_list_e22cc659</spirit:name>
@@ -15614,16 +15613,16 @@
       <spirit:enumeration spirit:text="Valid IEEE 802.3 commas only">1</spirit:enumeration>
     </spirit:choice>
     <spirit:choice>
-      <spirit:name>choice_pairs_1040277f</spirit:name>
-      <spirit:enumeration spirit:text="AVTT">AVTT</spirit:enumeration>
-      <spirit:enumeration spirit:text="FLOAT">FLOAT</spirit:enumeration>
-      <spirit:enumeration spirit:text="GND">GND</spirit:enumeration>
-      <spirit:enumeration spirit:text="Programmable">PROGRAMMABLE</spirit:enumeration>
-    </spirit:choice>
-    <spirit:choice>
       <spirit:name>choice_pairs_1436b008</spirit:name>
       <spirit:enumeration spirit:text="Multi-lane mode">MULTI</spirit:enumeration>
       <spirit:enumeration spirit:text="Single-lane mode">SINGLE</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>choice_pairs_3194ea81</spirit:name>
+      <spirit:enumeration spirit:text="AVTT">AVTT</spirit:enumeration>
+      <spirit:enumeration spirit:text="GND">GND</spirit:enumeration>
+      <spirit:enumeration spirit:text="FLOAT">FLOAT</spirit:enumeration>
+      <spirit:enumeration spirit:text="Programmable">PROGRAMMABLE</spirit:enumeration>
     </spirit:choice>
     <spirit:choice>
       <spirit:name>choice_pairs_40d02874</spirit:name>
@@ -15639,14 +15638,16 @@
       <spirit:enumeration spirit:text="Yes (include in Example Design)">EXAMPLE_DESIGN</spirit:enumeration>
     </spirit:choice>
     <spirit:choice>
-      <spirit:name>choice_pairs_5e3c7c93</spirit:name>
+      <spirit:name>choice_pairs_5d4d976c</spirit:name>
       <spirit:enumeration spirit:text="Start from scratch">None</spirit:enumeration>
+      <spirit:enumeration spirit:text="GTY: 100GAUI_4 (Beta)">GTY-100GAUI_4</spirit:enumeration>
       <spirit:enumeration spirit:text="GTY: 100GBASE-KR4 (Beta)">GTY-100GBASE-KR4</spirit:enumeration>
       <spirit:enumeration spirit:text="GTY: 10GBASE-KR (Production)">GTY-10GBASE-KR</spirit:enumeration>
       <spirit:enumeration spirit:text="GTY: 10GBASE-R (Production)">GTY-10GBASE-R</spirit:enumeration>
-      <spirit:enumeration spirit:text="GTY: 12G-SDI (Beta)">GTY-12G_SDI</spirit:enumeration>
+      <spirit:enumeration spirit:text="GTY: 12G-SDI (Production)">GTY-12G_SDI</spirit:enumeration>
       <spirit:enumeration spirit:text="GTY: 1G_10G_25G_switchable (Beta)">GTY-1G_10G_25G_switchable</spirit:enumeration>
-      <spirit:enumeration spirit:text="GTY: 3G-SDI (Beta)">GTY-3G_SDI</spirit:enumeration>
+      <spirit:enumeration spirit:text="GTY: 3G-SDI (Production)">GTY-3G_SDI</spirit:enumeration>
+      <spirit:enumeration spirit:text="GTY: 50GAUI_2 (Beta)">GTY-50GAUI_2</spirit:enumeration>
       <spirit:enumeration spirit:text="GTY: Aurora 64B/66B (Production)">GTY-Aurora_64B66B</spirit:enumeration>
       <spirit:enumeration spirit:text="GTY: Aurora 8B/10B (Beta)">GTY-Aurora_8B10B</spirit:enumeration>
       <spirit:enumeration spirit:text="GTY: MoSys Bandwidth Engine (Beta)">GTY-Bandwidth_Engine</spirit:enumeration>
@@ -15654,24 +15655,24 @@
       <spirit:enumeration spirit:text="GTY: CAUI-10 (Raw mode) (Production)">GTY-CAUI_10_raw</spirit:enumeration>
       <spirit:enumeration spirit:text="GTY: CAUI-4 (Raw mode) (Production)">GTY-CAUI_4</spirit:enumeration>
       <spirit:enumeration spirit:text="GTY: CEI-11G-SR (Pre-Production)">GTY-CEI_11G_SR</spirit:enumeration>
-      <spirit:enumeration spirit:text="GTY: CPRI 9.8 Gb/s, 8B10B, high loss (Pre-Production)">GTY-CPRI_10G</spirit:enumeration>
-      <spirit:enumeration spirit:text="GTY: CPRI 10.1 Gb/s and above, 64B66B, high loss (Pre-Production)">GTY-CPRI_10_1G</spirit:enumeration>
-      <spirit:enumeration spirit:text="GTY: CPRI 10.1 Gb/s and above, 64B66B, low loss (Pre-Production)">GTY-CPRI_10_1G_lowloss</spirit:enumeration>
-      <spirit:enumeration spirit:text="GTY: CPRI 6 Gb/s and below, 8B10B, low loss (Pre-Production)">GTY-CPRI_6G</spirit:enumeration>
-      <spirit:enumeration spirit:text="GTY: DisplayPort 1.62 Gb/s (Beta)">GTY-DisplayPort_1_62G</spirit:enumeration>
-      <spirit:enumeration spirit:text="GTY: DisplayPort 2.7 Gb/s (Beta)">GTY-DisplayPort_2_7G</spirit:enumeration>
-      <spirit:enumeration spirit:text="GTY: DisplayPort 5.4 Gb/s (Beta)">GTY-DisplayPort_5_4G</spirit:enumeration>
-      <spirit:enumeration spirit:text="GTY: DisplayPort 8.1 Gb/s (Pre-Production)">GTY-DisplayPort_8_1G</spirit:enumeration>
+      <spirit:enumeration spirit:text="GTY: CPRI 9.8 Gb/s, 8B10B, high loss (Production)">GTY-CPRI_10G</spirit:enumeration>
+      <spirit:enumeration spirit:text="GTY: CPRI 10.1 Gb/s and above, 64B66B, high loss (Production)">GTY-CPRI_10_1G</spirit:enumeration>
+      <spirit:enumeration spirit:text="GTY: CPRI 10.1 Gb/s and above, 64B66B, low loss (Production)">GTY-CPRI_10_1G_lowloss</spirit:enumeration>
+      <spirit:enumeration spirit:text="GTY: CPRI 6 Gb/s and below, 8B10B, low loss (Production)">GTY-CPRI_6G</spirit:enumeration>
+      <spirit:enumeration spirit:text="GTY: DisplayPort 1.62 Gb/s (Production)">GTY-DisplayPort_1_62G</spirit:enumeration>
+      <spirit:enumeration spirit:text="GTY: DisplayPort 2.7 Gb/s (Production)">GTY-DisplayPort_2_7G</spirit:enumeration>
+      <spirit:enumeration spirit:text="GTY: DisplayPort 5.4 Gb/s (Production)">GTY-DisplayPort_5_4G</spirit:enumeration>
+      <spirit:enumeration spirit:text="GTY: DisplayPort 8.1 Gb/s (Production)">GTY-DisplayPort_8_1G</spirit:enumeration>
       <spirit:enumeration spirit:text="GTY: Gigabit Ethernet (Production)">GTY-Gigabit_Ethernet</spirit:enumeration>
       <spirit:enumeration spirit:text="GTY: HDMI (Beta)">GTY-HDMI</spirit:enumeration>
-      <spirit:enumeration spirit:text="GTY: HD-SDI (Beta)">GTY-HD_SDI</spirit:enumeration>
+      <spirit:enumeration spirit:text="GTY: HD-SDI (Production)">GTY-HD_SDI</spirit:enumeration>
       <spirit:enumeration spirit:text="GTY: Hybrid Memory Cube 16x12.5G (Beta)">GTY-HMC_12_5G</spirit:enumeration>
       <spirit:enumeration spirit:text="GTY: Interlaken 10x10.3125G (Raw mode) (Production)">GTY-Interlaken_10G</spirit:enumeration>
       <spirit:enumeration spirit:text="GTY: Interlaken 12x12.5G (Raw mode) (Production)">GTY-Interlaken_12_5G</spirit:enumeration>
       <spirit:enumeration spirit:text="GTY: Interlaken 6x25.78125G (Raw mode) (Production)">GTY-Interlaken_25G</spirit:enumeration>
-      <spirit:enumeration spirit:text="GTY: JESD204 (Pre-Production)">GTY-JESD204</spirit:enumeration>
-      <spirit:enumeration spirit:text="GTY: JESD204B high loss (Pre-Production)">GTY-JESD204B_highloss</spirit:enumeration>
-      <spirit:enumeration spirit:text="GTY: JESD204B low loss (Pre-Production)">GTY-JESD204B_lowloss</spirit:enumeration>
+      <spirit:enumeration spirit:text="GTY: JESD204 (Production)">GTY-JESD204</spirit:enumeration>
+      <spirit:enumeration spirit:text="GTY: JESD204B high loss (Production)">GTY-JESD204B_highloss</spirit:enumeration>
+      <spirit:enumeration spirit:text="GTY: JESD204B low loss (Production)">GTY-JESD204B_lowloss</spirit:enumeration>
       <spirit:enumeration spirit:text="GTY: OTL4.10 (Beta)">GTY-OTL4_10</spirit:enumeration>
       <spirit:enumeration spirit:text="GTY: OTU2 (Beta)">GTY-OTU2</spirit:enumeration>
       <spirit:enumeration spirit:text="GTY: OTU2e (Beta)">GTY-OTU2e</spirit:enumeration>
@@ -15680,6 +15681,7 @@
       <spirit:enumeration spirit:text="GTY: RXAUI (Pre-Production)">GTY-RXAUI</spirit:enumeration>
       <spirit:enumeration spirit:text="GTY: SATA (Beta)">GTY-SATA</spirit:enumeration>
       <spirit:enumeration spirit:text="GTY: Serial RapidIO Gen2 3.125 Gb/s default (Pre-Production)">GTY-SRIO_Gen2</spirit:enumeration>
+      <spirit:enumeration spirit:text="GTY: VbyOne (Beta)">GTY-VbyOne</spirit:enumeration>
       <spirit:enumeration spirit:text="GTY: XAUI (Pre-Production)">GTY-XAUI</spirit:enumeration>
       <spirit:enumeration spirit:text="GTY: XLAUI (Beta)">GTY-XLAUI</spirit:enumeration>
     </spirit:choice>
@@ -15776,117 +15778,117 @@
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_bit_sync.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gte4_drp_arb.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gthe4_delay_powergood.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gtye4_delay_powergood.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gthe3_cpll_cal.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gthe3_cal_freqcnt.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gthe4_cpll_cal.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gthe4_cpll_cal_rx.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gthe4_cpll_cal_tx.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gthe4_cal_freqcnt.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gtye4_cpll_cal.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gtye4_cpll_cal_rx.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gtye4_cpll_cal_tx.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gtye4_cal_freqcnt.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gtwiz_buffbypass_rx.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gtwiz_buffbypass_tx.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gtwiz_reset.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gtwiz_userclk_rx.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gtwiz_userclk_tx.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gtwiz_userdata_rx.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gtwiz_userdata_tx.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_reset_sync.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_reset_inv_sync.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>synth/gtwizard_ultrascale_v1_7_gtye4_channel.v</spirit:name>
@@ -15935,139 +15937,139 @@
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_bit_sync.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gte4_drp_arb.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gthe4_delay_powergood.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gtye4_delay_powergood.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gthe3_cpll_cal.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gthe3_cal_freqcnt.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gthe4_cpll_cal.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gthe4_cpll_cal_rx.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gthe4_cpll_cal_tx.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gthe4_cal_freqcnt.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gtye4_cpll_cal.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gtye4_cpll_cal_rx.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gtye4_cpll_cal_tx.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gtye4_cal_freqcnt.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gtwiz_buffbypass_rx.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gtwiz_buffbypass_tx.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gtwiz_reset.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gtwiz_userclk_rx.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gtwiz_userclk_tx.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gtwiz_userdata_rx.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_gtwiz_userdata_tx.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_reset_sync.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/gtwizard_ultrascale_v1_7_reset_inv_sync.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-        <spirit:logicalName>gtwizard_ultrascale_v1_7_6</spirit:logicalName>
+        <spirit:logicalName>gtwizard_ultrascale_v1_7_13</spirit:logicalName>
       </spirit:file>
       <spirit:file>
         <spirit:name>sim/gtwizard_ultrascale_v1_7_gtye4_channel.v</spirit:name>
@@ -16446,7 +16448,7 @@
       <spirit:name>RX_JTOL_LF_SLOPE</spirit:name>
       <spirit:displayName>Mask low frequency slope (dB/decade)</spirit:displayName>
       <spirit:description>Refer to the product guide for guidelines on setting jitter tolerance mask low frequency slope.</spirit:description>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.RX_JTOL_LF_SLOPE" spirit:choiceRef="choice_list_13717074" spirit:order="44">-20</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.RX_JTOL_LF_SLOPE" spirit:choiceRef="choice_list_bf3f30a9" spirit:order="44">-20</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>RX_OUTCLK_SOURCE</spirit:name>
@@ -16466,7 +16468,7 @@
       <spirit:name>RX_TERMINATION</spirit:name>
       <spirit:displayName>Termination</spirit:displayName>
       <spirit:description>Select the receiver termination</spirit:description>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.RX_TERMINATION" spirit:choiceRef="choice_pairs_1040277f" spirit:order="48">PROGRAMMABLE</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.RX_TERMINATION" spirit:choiceRef="choice_pairs_3194ea81" spirit:order="48">PROGRAMMABLE</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>RX_TERMINATION_PROG_VALUE</spirit:name>
@@ -17800,7 +17802,7 @@
       <spirit:name>PRESET</spirit:name>
       <spirit:displayName>Transceiver configuration preset</spirit:displayName>
       <spirit:description>You may select a transceiver configuration preset to pre-populate Transceivers Wizard selections with those relevant to a particular protocol or electrical standard</spirit:description>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PRESET" spirit:choiceRef="choice_pairs_5e3c7c93" spirit:order="162">GTY-10GBASE-R</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.PRESET" spirit:choiceRef="choice_pairs_5d4d976c" spirit:order="162">GTY-10GBASE-R</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>INTERNAL_PRESET</spirit:name>
@@ -23874,7 +23876,7 @@
   <spirit:vendorExtensions>
     <xilinx:coreExtensions>
       <xilinx:displayName>UltraScale FPGAs Transceivers Wizard</xilinx:displayName>
-      <xilinx:coreRevision>6</xilinx:coreRevision>
+      <xilinx:coreRevision>13</xilinx:coreRevision>
       <xilinx:configElementInfos>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.CHANNEL_ENABLE" xilinx:valueSource="propagated"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.ENABLE_OPTIONAL_PORTS" xilinx:valueSource="propagated"/>
@@ -23888,6 +23890,7 @@
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.RX_EQ_MODE" xilinx:valueSource="propagated"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.RX_INT_DATA_WIDTH" xilinx:valueSource="propagated"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.RX_LINE_RATE" xilinx:valueSource="propagated"/>
+        <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.RX_QPLL_FRACN_NUMERATOR" xilinx:valueSource="propagated"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.RX_REFCLK_FREQUENCY" xilinx:valueSource="propagated"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.RX_REFCLK_SOURCE" xilinx:valueSource="propagated"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.RX_USER_DATA_WIDTH" xilinx:valueSource="propagated"/>
@@ -23895,17 +23898,18 @@
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.TX_DIFF_SWING_EMPH_MODE" xilinx:valueSource="propagated"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.TX_INT_DATA_WIDTH" xilinx:valueSource="propagated"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.TX_LINE_RATE" xilinx:valueSource="propagated"/>
+        <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.TX_QPLL_FRACN_NUMERATOR" xilinx:valueSource="propagated"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.TX_REFCLK_FREQUENCY" xilinx:valueSource="propagated"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.TX_REFCLK_SOURCE" xilinx:valueSource="propagated"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.TX_USER_DATA_WIDTH" xilinx:valueSource="propagated"/>
       </xilinx:configElementInfos>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
-      <xilinx:xilinxVersion>2019.1</xilinx:xilinxVersion>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="fdfbbfee"/>
+      <xilinx:xilinxVersion>2022.1</xilinx:xilinxVersion>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="b66a0b8a"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="240e62dd"/>
       <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="81cdd016"/>
-      <xilinx:checksum xilinx:scope="parameters" xilinx:value="cebee508"/>
+      <xilinx:checksum xilinx:scope="parameters" xilinx:value="a61078e5"/>
     </xilinx:packagingInfo>
   </spirit:vendorExtensions>
 </spirit:component>

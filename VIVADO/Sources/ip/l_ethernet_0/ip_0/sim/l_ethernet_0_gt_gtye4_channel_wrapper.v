@@ -394,7 +394,7 @@ module l_ethernet_0_gt_gtye4_channel_wrapper #(
 
 
 
-gtwizard_ultrascale_v1_7_6_gtye4_channel #(
+gtwizard_ultrascale_v1_7_13_gtye4_channel #(
   .GTYE4_CHANNEL_ACJTAG_DEBUG_MODE              (1'b0),
   .GTYE4_CHANNEL_ACJTAG_MODE                    (1'b0),
   .GTYE4_CHANNEL_ACJTAG_RESET                   (1'b0),

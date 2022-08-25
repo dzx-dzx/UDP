@@ -51,7 +51,7 @@
 `timescale 1ps/1ps
 `default_nettype none
 
-module axis_data_fifo_v2_0_1_top #
+module axis_data_fifo_v2_0_8_top #
 (
 ///////////////////////////////////////////////////////////////////////////////
 // Parameter Definitions
@@ -71,7 +71,7 @@ module axis_data_fifo_v2_0_1_top #
   //   [5] => TID present
   //   [6] => TDEST present
   //   [7] => TUSER present
-  parameter integer C_FIFO_DEPTH       = 1024,
+  parameter integer C_FIFO_DEPTH       = 512,
   //  Valid values 16,32,64,128,256,512,1024,2048,4096,...
   parameter integer C_FIFO_MODE  = 1,
   // Values:

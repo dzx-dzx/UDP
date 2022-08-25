@@ -59,7 +59,7 @@
 `default_nettype none
 
 (* DowngradeIPIdentifiedWarnings="yes" *)
-module axis_dwidth_converter_v1_1_18_axisc_downsizer #
+module axis_dwidth_converter_v1_1_25_axisc_downsizer #
 (
 ///////////////////////////////////////////////////////////////////////////////
 // Parameter Definitions
@@ -434,7 +434,7 @@ endmodule // axisc_downsizer
 `default_nettype none
 
 (* DowngradeIPIdentifiedWarnings="yes" *)
-module axis_dwidth_converter_v1_1_18_axisc_upsizer #
+module axis_dwidth_converter_v1_1_25_axisc_upsizer #
 (
 ///////////////////////////////////////////////////////////////////////////////
 // Parameter Definitions
@@ -807,7 +807,7 @@ endmodule // axisc_upsizer
 `default_nettype none
 
 (* DowngradeIPIdentifiedWarnings="yes" *)
-module axis_dwidth_converter_v1_1_18_axis_dwidth_converter #
+module axis_dwidth_converter_v1_1_25_axis_dwidth_converter #
 (
 ///////////////////////////////////////////////////////////////////////////////
 // Parameter Definitions
@@ -994,7 +994,7 @@ assign tdata_in = C_AXIS_SIGNAL_SET[G_INDX_SS_TDATA] ? s_axis_tdata : {C_S_AXIS_
 assign tkeep_in = C_AXIS_SIGNAL_SET[G_INDX_SS_TKEEP] ? s_axis_tkeep : {(C_S_AXIS_TDATA_WIDTH/8){1'b1}};
 assign tuser_in = C_AXIS_SIGNAL_SET[G_INDX_SS_TUSER] ? s_axis_tuser : {P_D1_TUSER_WIDTH{1'b1}};
 
-axis_register_slice_v1_1_19_axis_register_slice #(
+axis_register_slice_v1_1_26_axis_register_slice #(
   .C_FAMILY           ( C_FAMILY               ) ,
   .C_AXIS_TDATA_WIDTH ( C_S_AXIS_TDATA_WIDTH   ) ,
   .C_AXIS_TID_WIDTH   ( C_AXIS_TID_WIDTH       ) ,
@@ -1032,7 +1032,7 @@ axis_register_slice_0
 
 generate
   if (P_S_RATIO > 1) begin : gen_upsizer_conversion
-    axis_dwidth_converter_v1_1_18_axisc_upsizer #(
+    axis_dwidth_converter_v1_1_25_axisc_upsizer #(
       .C_FAMILY             ( C_FAMILY             ) ,
       .C_S_AXIS_TDATA_WIDTH ( C_S_AXIS_TDATA_WIDTH ) ,
       .C_M_AXIS_TDATA_WIDTH ( P_D2_TDATA_WIDTH     ) ,
@@ -1079,7 +1079,7 @@ generate
     assign d2_user  = d1_user;
   end
   if (P_M_RATIO > 1) begin : gen_downsizer_conversion
-    axis_dwidth_converter_v1_1_18_axisc_downsizer #(
+    axis_dwidth_converter_v1_1_25_axisc_downsizer #(
       .C_FAMILY             ( C_FAMILY             ) ,
       .C_S_AXIS_TDATA_WIDTH ( P_D2_TDATA_WIDTH     ) ,
       .C_M_AXIS_TDATA_WIDTH ( C_M_AXIS_TDATA_WIDTH ) ,
@@ -1127,7 +1127,7 @@ generate
   end
 endgenerate
 
-axis_register_slice_v1_1_19_axis_register_slice #(
+axis_register_slice_v1_1_26_axis_register_slice #(
   .C_FAMILY           ( C_FAMILY             ) ,
   .C_AXIS_TDATA_WIDTH ( C_M_AXIS_TDATA_WIDTH ) ,
   .C_AXIS_TID_WIDTH   ( C_AXIS_TID_WIDTH     ) ,

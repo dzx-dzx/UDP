@@ -2384,7 +2384,7 @@ module l_ethernet_0_gt_gtwizard_gtye4 #(
     // within this inactive generate block for proper HDL fileset hierarchy elaboration
     if (0) begin : gen_cpll_cal
 
-      gtwizard_ultrascale_v1_7_6_gthe3_cpll_cal gtwizard_ultrascale_v1_7_6_gthe3_cpll_cal_inst (
+      gtwizard_ultrascale_v1_7_13_gthe3_cpll_cal gtwizard_ultrascale_v1_7_13_gthe3_cpll_cal_inst (
         .TXOUTCLK_PERIOD_IN         (18'b0),
         .WAIT_DEASSERT_CPLLPD_IN    (16'b0),
         .CNT_TOL_IN                 (18'b0),
@@ -2424,7 +2424,7 @@ module l_ethernet_0_gt_gtwizard_gtye4 #(
     end
     if (0) begin : gen_cpll_cal_gthe4
 
-      gtwizard_ultrascale_v1_7_6_gthe4_cpll_cal #(
+      gtwizard_ultrascale_v1_7_13_gthe4_cpll_cal #(
           .C_SIM_CPLL_CAL_BYPASS( 
       //pragma translate_off
                   C_SIM_CPLL_CAL_BYPASS  ||
@@ -2436,9 +2436,8 @@ module l_ethernet_0_gt_gtwizard_gtye4 #(
         .C_RX_PLL_TYPE(C_RX_PLL_TYPE),
         .C_TX_PLL_TYPE(C_TX_PLL_TYPE),
         .C_PCIE_CORECLK_FREQ (C_PCIE_CORECLK_FREQ)
-      ) gtwizard_ultrascale_v1_7_6_gthe4_cpll_cal_inst (
+      ) gtwizard_ultrascale_v1_7_13_gthe4_cpll_cal_inst (
         .TXOUTCLK_PERIOD_IN         (18'b0),
-        .WAIT_DEASSERT_CPLLPD_IN    (16'b0),
         .CNT_TOL_IN                 (18'b0),
         .FREQ_COUNT_WINDOW_IN       (16'b0),
         .RESET_IN                   (1'b0),
@@ -2512,7 +2511,6 @@ module l_ethernet_0_gt_gtwizard_gtye4 #(
       // Use local parameters and declare both debug and connectivity wires for use with the CPLL calibration block
       wire [15:0] p_cpll_cal_freq_count_window_int      = P_CPLL_CAL_FREQ_COUNT_WINDOW;
       wire [17:0] p_cpll_cal_txoutclk_period_int        = P_CPLL_CAL_TXOUTCLK_PERIOD;
-      wire [15:0] p_cpll_cal_wait_deassert_cpllpd_int   = P_CPLL_CAL_WAIT_DEASSERT_CPLLPD;
       wire [17:0] p_cpll_cal_txoutclk_period_div100_int = P_CPLL_CAL_TXOUTCLK_PERIOD_DIV100;
 
       wire [ `l_ethernet_0_gt_gtwizard_gtye4_N_CH     -1:0] cpll_cal_fail_int;
@@ -2590,7 +2588,7 @@ module l_ethernet_0_gt_gtwizard_gtye4 #(
           assign drpwe_cpll_cal_int[cal]                    = drpwe_int[cal];
         end
         else begin: gen_inst_cpll_cal
-        gtwizard_ultrascale_v1_7_6_gtye4_cpll_cal #(
+        gtwizard_ultrascale_v1_7_13_gtye4_cpll_cal #(
           .C_SIM_CPLL_CAL_BYPASS( 
       //pragma translate_off
                   C_SIM_CPLL_CAL_BYPASS  ||
@@ -2602,9 +2600,8 @@ module l_ethernet_0_gt_gtwizard_gtye4 #(
           .C_RX_PLL_TYPE(C_RX_PLL_TYPE),
           .C_TX_PLL_TYPE(C_TX_PLL_TYPE),
           .C_PCIE_CORECLK_FREQ (C_PCIE_CORECLK_FREQ) 
-        ) gtwizard_ultrascale_v1_7_6_gtye4_cpll_cal_inst (
+        ) gtwizard_ultrascale_v1_7_13_gtye4_cpll_cal_inst (
           .TXOUTCLK_PERIOD_IN         (cpll_cal_txoutclk_period_int[(18*cal)+17:18*cal]),
-          .WAIT_DEASSERT_CPLLPD_IN    (p_cpll_cal_wait_deassert_cpllpd_int),
           .CNT_TOL_IN                 (cpll_cal_cnt_tol_int[(18*cal)+17:18*cal]),
           .FREQ_COUNT_WINDOW_IN       (p_cpll_cal_freq_count_window_int),
           .RESET_IN                   (cpll_cal_reset_int[cal]),
@@ -2710,7 +2707,7 @@ module l_ethernet_0_gt_gtwizard_gtye4 #(
 
     genvar pwrgood_delay;
     for (pwrgood_delay = 0; pwrgood_delay < `l_ethernet_0_gt_gtwizard_gtye4_N_CH; pwrgood_delay = pwrgood_delay + 1) begin : gen_pwrgood_delay_inst
-        gtwizard_ultrascale_v1_7_6_gtye4_delay_powergood #(
+        gtwizard_ultrascale_v1_7_13_gtye4_delay_powergood #(
           .C_USER_GTPOWERGOOD_DELAY_EN (C_USER_GTPOWERGOOD_DELAY_EN ),
           .C_PCIE_ENABLE               (C_PCIE_ENABLE               )
         ) delay_powergood_inst (
@@ -2802,7 +2799,7 @@ module l_ethernet_0_gt_gtwizard_gtye4 #(
         end
 
         // Instantiate a single instance of the transmitter user clocking network helper block
-        gtwizard_ultrascale_v1_7_6_gtwiz_userclk_tx #(
+        gtwizard_ultrascale_v1_7_13_gtwiz_userclk_tx #(
           .P_CONTENTS                     (C_TX_USER_CLOCKING_CONTENTS),
           .P_FREQ_RATIO_SOURCE_TO_USRCLK  (C_TX_OUTCLK_BUFG_GT_DIV),
           .P_FREQ_RATIO_USRCLK_TO_USRCLK2 (C_TX_USER_CLOCKING_RATIO_FUSRCLK_FUSRCLK2)
@@ -2854,7 +2851,7 @@ module l_ethernet_0_gt_gtwizard_gtye4 #(
             assign gtwiz_userclk_tx_reset_int[gi_hb_txclk] = gtwiz_userclk_rx_reset_in[gi_hb_txclk];
           end
 
-          gtwizard_ultrascale_v1_7_6_gtwiz_userclk_tx #(
+          gtwizard_ultrascale_v1_7_13_gtwiz_userclk_tx #(
             .P_CONTENTS                     (C_TX_USER_CLOCKING_CONTENTS),
             .P_FREQ_RATIO_SOURCE_TO_USRCLK  (C_TX_OUTCLK_BUFG_GT_DIV),
             .P_FREQ_RATIO_USRCLK_TO_USRCLK2 (C_TX_USER_CLOCKING_RATIO_FUSRCLK_FUSRCLK2)
@@ -2938,7 +2935,7 @@ module l_ethernet_0_gt_gtwizard_gtye4 #(
         end
 
         // Instantiate a single instance of the receiver user clocking network helper block
-        gtwizard_ultrascale_v1_7_6_gtwiz_userclk_rx #(
+        gtwizard_ultrascale_v1_7_13_gtwiz_userclk_rx #(
           .P_CONTENTS                     (C_RX_USER_CLOCKING_CONTENTS),
           .P_FREQ_RATIO_SOURCE_TO_USRCLK  (C_RX_OUTCLK_BUFG_GT_DIV),
           .P_FREQ_RATIO_USRCLK_TO_USRCLK2 (C_RX_USER_CLOCKING_RATIO_FUSRCLK_FUSRCLK2)
@@ -2992,7 +2989,7 @@ module l_ethernet_0_gt_gtwizard_gtye4 #(
             assign gtwiz_userclk_rx_reset_int[gi_hb_rxclk] = gtwiz_userclk_tx_reset_in;
           end
 
-          gtwizard_ultrascale_v1_7_6_gtwiz_userclk_rx #(
+          gtwizard_ultrascale_v1_7_13_gtwiz_userclk_rx #(
             .P_CONTENTS                     (C_RX_USER_CLOCKING_CONTENTS),
             .P_FREQ_RATIO_SOURCE_TO_USRCLK  (C_RX_OUTCLK_BUFG_GT_DIV),
             .P_FREQ_RATIO_USRCLK_TO_USRCLK2 (C_RX_USER_CLOCKING_RATIO_FUSRCLK_FUSRCLK2)
@@ -3062,7 +3059,7 @@ module l_ethernet_0_gt_gtwizard_gtye4 #(
           assign gtwiz_buffbypass_tx_resetdone_int = &gtwiz_reset_tx_done_out;
         end
 
-        gtwizard_ultrascale_v1_7_6_gtwiz_buffbypass_tx #(
+        gtwizard_ultrascale_v1_7_13_gtwiz_buffbypass_tx #(
           .P_BUFFER_BYPASS_MODE       (C_TX_BUFFBYPASS_MODE),
           .P_TOTAL_NUMBER_OF_CHANNELS (C_TOTAL_NUM_CHANNELS),
           .P_MASTER_CHANNEL_POINTER   (P_TX_MASTER_CH_PACKED_IDX)
@@ -3117,7 +3114,7 @@ module l_ethernet_0_gt_gtwizard_gtye4 #(
 
         genvar gi_hb_txbb;
         for (gi_hb_txbb = 0; gi_hb_txbb < `l_ethernet_0_gt_gtwizard_gtye4_N_CH; gi_hb_txbb = gi_hb_txbb + 1) begin : gen_gtwiz_buffbypass_tx
-          gtwizard_ultrascale_v1_7_6_gtwiz_buffbypass_tx #(
+          gtwizard_ultrascale_v1_7_13_gtwiz_buffbypass_tx #(
             .P_BUFFER_BYPASS_MODE       (C_TX_BUFFBYPASS_MODE),
             .P_TOTAL_NUMBER_OF_CHANNELS (1),
             .P_MASTER_CHANNEL_POINTER   (0)
@@ -3216,7 +3213,7 @@ module l_ethernet_0_gt_gtwizard_gtye4 #(
           assign gtwiz_buffbypass_rx_resetdone_int = &gtwiz_reset_rx_done_out;
         end
 
-        gtwizard_ultrascale_v1_7_6_gtwiz_buffbypass_rx #(
+        gtwizard_ultrascale_v1_7_13_gtwiz_buffbypass_rx #(
           .P_BUFFER_BYPASS_MODE       (C_RX_BUFFBYPASS_MODE),
           .P_TOTAL_NUMBER_OF_CHANNELS (C_TOTAL_NUM_CHANNELS),
           .P_MASTER_CHANNEL_POINTER   (P_RX_MASTER_CH_PACKED_IDX)
@@ -3266,7 +3263,7 @@ module l_ethernet_0_gt_gtwizard_gtye4 #(
 
         genvar gi_hb_rxbb;
         for (gi_hb_rxbb = 0; gi_hb_rxbb < `l_ethernet_0_gt_gtwizard_gtye4_N_CH; gi_hb_rxbb = gi_hb_rxbb + 1) begin : gen_gtwiz_buffbypass_rx
-          gtwizard_ultrascale_v1_7_6_gtwiz_buffbypass_rx #(
+          gtwizard_ultrascale_v1_7_13_gtwiz_buffbypass_rx #(
             .P_BUFFER_BYPASS_MODE       (C_RX_BUFFBYPASS_MODE),
             .P_TOTAL_NUMBER_OF_CHANNELS (1),
             .P_MASTER_CHANNEL_POINTER   (0)
@@ -3364,7 +3361,7 @@ module l_ethernet_0_gt_gtwizard_gtye4 #(
 
           genvar gi_ch_rxclk;
           for (gi_ch_rxclk = 0; gi_ch_rxclk < `l_ethernet_0_gt_gtwizard_gtye4_N_CH; gi_ch_rxclk = gi_ch_rxclk + 1) begin : gen_ch_rxclk
-            gtwizard_ultrascale_v1_7_6_bit_synchronizer bit_synchronizer_gtwiz_reset_userclk_rx_active_inst (
+            gtwizard_ultrascale_v1_7_13_bit_synchronizer bit_synchronizer_gtwiz_reset_userclk_rx_active_inst (
               .clk_in (gtwiz_reset_clk_freerun_in),
               .i_in   (gtwiz_userclk_rx_active_out[gi_ch_rxclk]),
               .o_out  (gtwiz_userclk_rx_active_sync[gi_ch_rxclk])
@@ -3409,12 +3406,12 @@ module l_ethernet_0_gt_gtwizard_gtye4 #(
         wire [`l_ethernet_0_gt_gtwizard_gtye4_N_CH-1:0] rxresetdone_sync;
         genvar gi_ch_xrd;
         for (gi_ch_xrd = 0; gi_ch_xrd < `l_ethernet_0_gt_gtwizard_gtye4_N_CH; gi_ch_xrd = gi_ch_xrd + 1) begin : gen_ch_xrd
-          gtwizard_ultrascale_v1_7_6_bit_synchronizer bit_synchronizer_txresetdone_inst (
+          gtwizard_ultrascale_v1_7_13_bit_synchronizer bit_synchronizer_txresetdone_inst (
             .clk_in (gtwiz_reset_clk_freerun_in),
             .i_in   (txresetdone_int[gi_ch_xrd]),
             .o_out  (txresetdone_sync[gi_ch_xrd])
           );
-          gtwizard_ultrascale_v1_7_6_bit_synchronizer bit_synchronizer_rxresetdone_inst (
+          gtwizard_ultrascale_v1_7_13_bit_synchronizer bit_synchronizer_rxresetdone_inst (
             .clk_in (gtwiz_reset_clk_freerun_in),
             .i_in   (rxresetdone_int[gi_ch_xrd]),
             .o_out  (rxresetdone_sync[gi_ch_xrd])
@@ -3453,7 +3450,7 @@ module l_ethernet_0_gt_gtwizard_gtye4 #(
         end
 
         // Instantiate the single reset controller
-        gtwizard_ultrascale_v1_7_6_gtwiz_reset #(
+        gtwizard_ultrascale_v1_7_13_gtwiz_reset #(
           .P_FREERUN_FREQUENCY       (C_FREERUN_FREQUENCY),
           .P_USE_CPLL_CAL            (0),
           .P_TX_PLL_TYPE             (C_TX_PLL_TYPE),
@@ -3644,7 +3641,7 @@ module l_ethernet_0_gt_gtwizard_gtye4 #(
           endcase
 
           // Instantiate a reset controller per channel
-          gtwizard_ultrascale_v1_7_6_gtwiz_reset #(
+          gtwizard_ultrascale_v1_7_13_gtwiz_reset #(
             .P_FREERUN_FREQUENCY       (C_FREERUN_FREQUENCY),
             .P_USE_CPLL_CAL            (0),
             .P_TX_PLL_TYPE             (C_TX_PLL_TYPE),
@@ -3818,7 +3815,7 @@ module l_ethernet_0_gt_gtwizard_gtye4 #(
       wire [(C_TOTAL_NUM_CHANNELS* 16)-1:0] gtwiz_userdata_tx_txctrl0_int;
       wire [(C_TOTAL_NUM_CHANNELS* 16)-1:0] gtwiz_userdata_tx_txctrl1_int;
 
-      gtwizard_ultrascale_v1_7_6_gtwiz_userdata_tx #(
+      gtwizard_ultrascale_v1_7_13_gtwiz_userdata_tx #(
         .P_TX_USER_DATA_WIDTH       (C_TX_USER_DATA_WIDTH),
         .P_TX_DATA_ENCODING         (C_TX_DATA_ENCODING),
         .P_TOTAL_NUMBER_OF_CHANNELS (C_TOTAL_NUM_CHANNELS)
@@ -3864,7 +3861,7 @@ module l_ethernet_0_gt_gtwizard_gtye4 #(
         (C_LOCATE_USER_DATA_WIDTH_SIZING == `l_ethernet_0_gt_gtwizard_gtye4_LOCATE_USER_DATA_WIDTH_SIZING__CORE))
         begin : gen_rx_userdata_internal
 
-      gtwizard_ultrascale_v1_7_6_gtwiz_userdata_rx #(
+      gtwizard_ultrascale_v1_7_13_gtwiz_userdata_rx #(
         .P_RX_USER_DATA_WIDTH       (C_RX_USER_DATA_WIDTH),
         .P_RX_DATA_DECODING         (C_RX_DATA_DECODING),
         .P_TOTAL_NUMBER_OF_CHANNELS (C_TOTAL_NUM_CHANNELS)

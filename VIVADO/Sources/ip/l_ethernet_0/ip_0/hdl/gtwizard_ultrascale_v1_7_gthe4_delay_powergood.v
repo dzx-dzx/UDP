@@ -52,7 +52,7 @@
 
 `timescale 1ps/1ps
 
-module gtwizard_ultrascale_v1_7_6_gthe4_delay_powergood # (
+module gtwizard_ultrascale_v1_7_13_gthe4_delay_powergood # (
   parameter C_USER_GTPOWERGOOD_DELAY_EN = 0,
   parameter C_PCIE_ENABLE = "FALSE"
 )(
@@ -84,9 +84,10 @@ begin : gen_powergood_nodelay
 end
 else
 begin: gen_powergood_delay
-  (* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *) reg [4:0] intclk_rrst_n_r;
-  reg [3:0] wait_cnt;
-  (* KEEP = "TRUE" *) reg pwr_on_fsm = 1'b0;
+  (*  ASYNC_REG = "TRUE", SHREG_EXTRACT = "NO" *) reg [4:0] intclk_rrst_n_r = 5'd0;
+  (*  ASYNC_REG = "TRUE", SHREG_EXTRACT = "NO" *) reg [8:0] wait_cnt;
+  (*  ASYNC_REG = "TRUE", SHREG_EXTRACT = "NO" *) (* KEEP = "TRUE" *) reg int_pwr_on_fsm = 1'b0;
+  (*  ASYNC_REG = "TRUE", SHREG_EXTRACT = "NO" *) (* KEEP = "TRUE" *) reg pwr_on_fsm = 1'b0;
   wire intclk_rrst_n;
   
   //--------------------------------------------------------------------------
@@ -102,7 +103,7 @@ begin: gen_powergood_delay
   begin
       if (!GT_GTPOWERGOOD)
           intclk_rrst_n_r <= 5'd0;
-      else if(!pwr_on_fsm)
+      else if(!int_pwr_on_fsm)
           intclk_rrst_n_r <= {intclk_rrst_n_r[3:0], 1'd1}; 
   end
 
@@ -114,12 +115,12 @@ begin: gen_powergood_delay
   always @ (posedge GT_RXOUTCLKPCS)
   begin
     if (!intclk_rrst_n)
-    	wait_cnt <= 4'd0;
+    	wait_cnt <= 9'd0;
     else begin
-    	if (pwr_on_fsm == PWR_ON_WAIT_CNT)
-    		wait_cnt <= wait_cnt + 4'd1;
+    	if (int_pwr_on_fsm == PWR_ON_WAIT_CNT)
+    		wait_cnt <= {wait_cnt[7:0],1'b1};
     	else
-    		wait_cnt <= 4'd9;
+    		wait_cnt <= wait_cnt;
     end
   end
 
@@ -131,27 +132,30 @@ begin: gen_powergood_delay
   begin
     if (!GT_GTPOWERGOOD)
     begin
-      pwr_on_fsm <= PWR_ON_WAIT_CNT;
+      int_pwr_on_fsm <= PWR_ON_WAIT_CNT;
     end
     else begin
-      case (pwr_on_fsm)
+      case (int_pwr_on_fsm)
         PWR_ON_WAIT_CNT :
           begin
-            pwr_on_fsm <= (wait_cnt[3] == 1'b1) ? PWR_ON_DONE : PWR_ON_WAIT_CNT;
+            int_pwr_on_fsm <= (wait_cnt[7] == 1'b1) ? PWR_ON_DONE : PWR_ON_WAIT_CNT;
           end 
 
         PWR_ON_DONE :
           begin
-            pwr_on_fsm <= PWR_ON_DONE;
+            int_pwr_on_fsm <= PWR_ON_DONE;
           end
 
         default :
         begin
-          pwr_on_fsm <= PWR_ON_WAIT_CNT;
+          int_pwr_on_fsm <= PWR_ON_WAIT_CNT;
         end
       endcase
     end
   end
+
+  always @(posedge GT_RXOUTCLKPCS)
+    pwr_on_fsm <= int_pwr_on_fsm;
 
   assign GT_RXPD          = pwr_on_fsm ? USER_RXPD : 2'b11;
   assign GT_GTRXRESET     = pwr_on_fsm ? USER_GTRXRESET : !GT_GTPOWERGOOD;
