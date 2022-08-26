@@ -124,10 +124,10 @@ case class EthernetRx(ethernetRxGenerics: EthernetRxGenerics) extends Component 
 
   io.dataOut <-/< ((ethCheck
     .throwWhen {
-      report(L"At $REPORT_TIME, while processing${ethCheck.payload.input.data} EthMacCheck:${EthMacCheck(
-        ethCheck.input.tkeep,
-        ethCheck.eth.mac
-      )} EthIpCheck:${EthIpCheck(ethCheck.eth.ip)} EthUdpCheck:${EthUdpCheck(ethCheck.eth.udp)}".toSeq)
+      // report(L"At $REPORT_TIME, while processing ${ethCheck.payload.input.data} EthMacCheck:${EthMacCheck(
+      //   ethCheck.input.tkeep,
+      //   ethCheck.eth.mac
+      // )} EthIpCheck:${EthIpCheck(ethCheck.eth.ip)} EthUdpCheck:${EthUdpCheck(ethCheck.eth.udp)}".toSeq)
       EthMacCheck(ethCheck.input.tkeep, ethCheck.eth.mac) ||
       EthIpCheck(ethCheck.eth.ip) ||
       EthUdpCheck(ethCheck.eth.udp)

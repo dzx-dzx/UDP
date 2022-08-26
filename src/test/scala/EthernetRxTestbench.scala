@@ -4,6 +4,7 @@ import org.scalatest.funsuite.AnyFunSuite
 import spinal.core._
 import spinal.core.sim._
 import scala.collection.mutable.Queue
+import scala.util.Random
 
 class EthernetRxTestbench extends AnyFunSuite {
   var compiled: SimCompiled[EthernetRx] = null
@@ -37,6 +38,17 @@ class EthernetRxTestbench extends AnyFunSuite {
         }
 
         io.dataIn.payload.last #= false
+        def insertHeader(): Unit = {
+          io.dataIn.payload.fragment.data #= BigInt(
+            "55555555555555d511111111111111111111110108004500218b0099400040115f877f0000017f00000194619460217700000000000000000000000000000000",
+            16
+          )
+          io.dataIn.payload.fragment.tkeep #= BigInt(
+            "ffffffffffffc000",
+            16
+          )
+        }
+        insertHeader()
 
         fork {
           while (true) {
@@ -45,22 +57,16 @@ class EthernetRxTestbench extends AnyFunSuite {
 
             if (io.dataIn.valid.toBoolean && io.dataIn.ready.toBoolean) {
               if (io.dataIn.payload.last.toBoolean) {
-                io.dataIn.payload.fragment.data #= BigInt(
-                  "55555555555555d511111111111111111111110108004500218b0099400040115f877f0000017f00000194619460217700000000000000000000000000000000",
-                  16
-                )
+                insertHeader()
                 io.dataIn.payload.last #= false
+                val stimulus = extractDataFromFragments(stimulusFragment)
+                scoreboard.enqueue(stimulus)
+                println(Console.RED + s"Stimulus:\n${stimulus}")
               } else {
-                stimulusFragment.enqueue(
-                  io.dataIn.payload.data.toBigInt.toString(16)
-                )
-                if (io.dataIn.payload.last.toBoolean) {
-                  val stimulus = extractDataFromFragments(stimulusFragment)
-                  scoreboard.enqueue(stimulus)
-                  println(Console.RED + s"Stimulus:\n${stimulus}")
-                }
+                val dataIn = BigInt(512, Random)
+                stimulusFragment.enqueue(dataIn.toString(16))
                 io.dataIn.payload.last.randomize()
-                io.dataIn.payload.fragment.data.randomize()
+                io.dataIn.payload.fragment.data #= dataIn
               }
             }
           }
