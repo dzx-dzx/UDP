@@ -103,8 +103,6 @@ case class EthernetRx(ethernetRxGenerics: EthernetRxGenerics) extends Component 
       ret.eth         := inputEth.payload // 包传递完成前保持不变.
       ret
     }
-=======
-  )
 
   def EthIpCheck(ip: IPHeader): Bool = ~(
     ip.ttlProtocol((TTL_PROTOCOL_WIDTH / 2 - 1) downto 0) === PROTOCOL
@@ -120,14 +118,6 @@ case class EthernetRx(ethernetRxGenerics: EthernetRxGenerics) extends Component 
       && ((mac.destMac === ethernetRxGenerics.destMac) || (mac.destMac === BROADCAST_MAC_ADDRESS))
       && (mac.ethType === ETH_TYPE)
   )
-
-  def EthIpCheck(ip: IPHeader): Bool = ~(
-    ip.ttlProtocol((TTL_PROTOCOL_WIDTH / 2 - 1) downto 0) === PROTOCOL
-      && (ip.destIp === ethernetRxGenerics.destIp.ip)
-  )
-
-  def EthUdpCheck(udp: UDPHeader): Bool = ~(udp.destPort === ethernetRxGenerics.destPort)
-  // 校验包头各部分.
 
   val ethCheck = Stream(EthernetRxDataEth())
   ethCheck <-/< eth
