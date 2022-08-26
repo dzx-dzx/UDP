@@ -11,6 +11,11 @@ from queue import Queue
 # from remote_pdb import RemotePdb
 # rpdb = RemotePdb("127.0.0.1", 4000)
 
+import debugpy
+debugpy.listen(4001)
+print("Waiting for debugger attach")
+debugpy.wait_for_client()
+
 BYTE_WIDTH = 8
 DATA_WIDTH = 512
 KEEP_WIDTH = 64
@@ -132,7 +137,7 @@ class RxTopTester:
 
         recv_data = udp_socket.recvfrom(65535)  #
         print(recv_data)
-        while recv_data[1][0]!="127.0.0.1":
+        while recv_data[1][0] != "127.0.0.1":
             recv_data = udp_socket.recvfrom(65535)
             print(recv_data)
 
@@ -191,10 +196,12 @@ class RxTopTester:
         udp_socket.close()
         data_in_fragment = eth << (DATA_WIDTH - ETH_TOTAL_LENGTH * BYTE_WIDTH)
         # print(hex(data_in_fragment))
-        data_in_keep = ((2**ETH_TOTAL_LENGTH) - 1) << (KEEP_WIDTH - ETH_TOTAL_LENGTH)
+        data_in_keep = ((2**ETH_TOTAL_LENGTH) -
+                        1) << (KEEP_WIDTH - ETH_TOTAL_LENGTH)
         # print(hex(data_in_keep))
         data_in_last = False
-        self.rxDataQueue.put([data_in_fragment, data_in_keep, data_in_last])  # 以太网帧头
+        self.rxDataQueue.put(
+            [data_in_fragment, data_in_keep, data_in_last])  # 以太网帧头
         data_num = len(msg) * BYTE_WIDTH // DATA_WIDTH
         data_mod = len(msg) * BYTE_WIDTH % DATA_WIDTH
 
@@ -209,7 +216,8 @@ class RxTopTester:
                 data_in_last = True
             else:
                 data_in_last = False
-            self.rxDataQueue.put([data_in_fragment, data_in_keep, data_in_last])
+            self.rxDataQueue.put(
+                [data_in_fragment, data_in_keep, data_in_last])
             self.aimResult.put([data_in_fragment, data_in_keep, data_in_last])
 
         if data_mod != 0:
@@ -217,29 +225,34 @@ class RxTopTester:
             for k in range(data_mod // BYTE_WIDTH):
                 data_8bit = "{0:08b}".format(msg[k - 1])
                 data_512bit = data_8bit + data_512bit
-            data_in_fragment = int(data_512bit, base=2) << (DATA_WIDTH - data_mod)
+            data_in_fragment = int(data_512bit, base=2) << (
+                DATA_WIDTH - data_mod)
             data_in_keep = (2 ** (data_mod // BYTE_WIDTH)) - 1 << (
                 KEEP_WIDTH - data_mod // BYTE_WIDTH
             )
             data_in_last = True
-            self.rxDataQueue.put([data_in_fragment, data_in_keep, data_in_last])
+            self.rxDataQueue.put(
+                [data_in_fragment, data_in_keep, data_in_last])
             self.aimResult.put([data_in_fragment, data_in_keep, data_in_last])
 
     async def input_drv(self):
         dut = self.dut
         edge = RisingEdge(dut.clk)
+        doStart = True
         while not self.rxDataQueue.empty():
-            dut.io_dataIn_valid.setimmediatevalue(1)
-            dut.io_dataOut_ready.setimmediatevalue(random.random() > 0.3)
-            if dut.io_dataIn_valid.value & dut.io_dataIn_ready.value:
+            dut.io_dataOut_ready.value = (random.random() > 0.3)
+            dut.io_dataIn_valid .value = (1)
+            if (dut.io_dataIn_valid.value & dut.io_dataIn_ready.value) or doStart:
+                doStart = False
                 data_rx = self.rxDataQueue.get()
                 data = data_rx[0]
                 tkeep = data_rx[1]
                 last = data_rx[2]
-                dut.io_dataIn_payload_fragment_data.setimmediatevalue(data)
-                dut.io_dataIn_payload_fragment_tkeep.setimmediatevalue(tkeep)
-                dut.io_dataIn_payload_last.setimmediatevalue(last)
-            await edge
+                dut.io_dataIn_payload_fragment_data.value = (data)
+                dut.io_dataIn_payload_fragment_tkeep.value = (tkeep)
+                dut.io_dataIn_payload_last.value = (last)
+            await RisingEdge(dut.clk)
+        dut.io_dataIn_valid .value = 0
 
     async def task_mon(self):
         dut = self.dut
@@ -257,14 +270,13 @@ class RxTopTester:
                 )
 
             if dut.io_dataOut_payload_last.value:
-                if self.recvQ.empty():
-                    raise TestFailure("Ethernet frame header mismatch")
-                else:
-                    while not self.aimResult.empty():
-                        recvQ_data = self.recvQ.get()
-                        aimResult_data = self.aimResult.get()
-                        if recvQ_data != aimResult_data:
-                            flag = flag + 1
+                while not self.aimResult.empty():
+                    if self.recvQ.empty():
+                        raise TestFailure("Ethernet frame header mismatch")
+                    recvQ_data = self.recvQ.get()
+                    aimResult_data = self.aimResult.get()
+                    if recvQ_data != aimResult_data:
+                        flag = flag + 1
                     if flag == 0:
                         raise TestSuccess("pass")
                     else:
