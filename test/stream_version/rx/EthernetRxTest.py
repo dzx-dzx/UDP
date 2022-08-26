@@ -277,10 +277,10 @@ class RxTopTester:
                     aimResult_data = self.aimResult.get()
                     if recvQ_data != aimResult_data:
                         flag = flag + 1
-                    if flag == 0:
-                        raise TestSuccess("pass")
-                    else:
-                        raise TestFailure("Failure")
+                if flag == 0:
+                    raise TestSuccess("pass")
+                else:
+                    raise TestFailure("Failure")
             await edge
 
 
