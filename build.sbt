@@ -27,7 +27,7 @@ lazy val udp = (project in file("."))
 
       "-deprecation", // Emit warning and location for usages of deprecated APIs.
       "-encoding",
-      "utf-8",         // Specify character encoding used by source files.
+      "utf-8",                 // Specify character encoding used by source files.
       "-explaintypes", // Explain type errors in more detail.
       "-feature", // Emit warning and location for usages of features that should be imported explicitly.
       "-language:existentials", // Existential types (besides wildcard types) can be written and inferred
@@ -47,12 +47,12 @@ lazy val udp = (project in file("."))
       "-Werror", // Fail the compilation if there are any warnings. [false]
       "-Wextra-implicit", // Warn when more than one implicit parameter section is defined. [false]
       "-Wmacros:both", // Inspect both user-written code and expanded trees when generating unused symbol warnings.
-      "-Wnumeric-widen",    // Warn when numerics are widened. [false]
-      "-Woctal-literal",    // Warn on obsolete octal syntax. [false]
-      "-Wunused:imports",   // Warn if an import selector is not referenced.
-      "-Wunused:patvars",   // Warn if a variable bound in a pattern is unused.
-      "-Wunused:privates",  // Warn if a private member is unused.
-      "-Wunused:locals",    // Warn if a local definition is unused.
+      "-Wnumeric-widen",       // Warn when numerics are widened. [false]
+      "-Woctal-literal",       // Warn on obsolete octal syntax. [false]
+      "-Wunused:imports",     // Warn if an import selector is not referenced.
+      "-Wunused:patvars",     // Warn if a variable bound in a pattern is unused.
+      "-Wunused:privates",   // Warn if a private member is unused.
+      "-Wunused:locals",       // Warn if a local definition is unused.
       "-Wunused:explicits", // Warn if an explicit parameter is unused.
       "-Wunused:implicits", // Warn if an implicit parameter is unused.
       "-Wunused:synthetics", // Warn if a synthetic implicit parameter (context bound) is unused.
@@ -69,7 +69,7 @@ lazy val udp = (project in file("."))
       "-Xlint:private-shadow", // A private field (or class parameter) shadows a superclass field.
       "-Xlint:type-parameter-shadow", // A local type parameter shadows a type already in scope.
       "-Xlint:poly-implicit-overload", // Parameterized overloaded implicit methods are not visible as view bounds.
-      "-Xlint:option-implicit",    // Option.apply used an implicit view.
+      "-Xlint:option-implicit",       // Option.apply used an implicit view.
       "-Xlint:delayedinit-select", // Selecting member of DelayedInit.
       "-Xlint:package-object-classes", // Class or object defined in package object.
       "-Xlint:stars-align", // In a pattern, a sequence wildcard `_*` should match all of a repeated parameter.

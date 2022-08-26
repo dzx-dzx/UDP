@@ -54,6 +54,18 @@ trait HeaderSegments extends Bundle {
   def concat = this.elements
     .map(_._2.asBits)
     .reduceRight((a, b) => a ## b)
+  def set(bits: Bits): Unit = {
+    var cur = bits.getWidth - 1
+    for ((_, element) <- this.elements) {
+      element match {
+        case e: HeaderSegments => e.set(bits(cur downto cur - element.getBitsWidth + 1))
+        case e: UInt           => e := bits(cur downto cur - element.getBitsWidth + 1).asUInt
+        case e: Bits           => e := bits(cur downto cur - element.getBitsWidth + 1)
+        case _                 => ???
+      }
+      cur -= element.getBitsWidth
+    }
+  }
 }
 
 import EthernetProtocolConstant._
@@ -84,10 +96,9 @@ case class UDPHeader() extends HeaderSegments {
   val udpCheckSum = UInt(UDP_CHECKSUM_WIDTH bits)
 }
 
-case class Header() extends HeaderSegments{
-  val mac = MacHeader()
-  val ip  = IPHeader()
-  val udp = UDPHeader()
+case class Header() extends HeaderSegments {
+  val mac                   = MacHeader()
+  val ip                    = IPHeader()
+  val udp                   = UDPHeader()
   override def concat: Bits = mac.concat ## ip.concat ## udp.concat
 }
-
