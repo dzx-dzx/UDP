@@ -52,7 +52,8 @@ case class EthernetRxDataOut() extends Bundle {
   val tkeep = Bits(KEEP_WIDTH bits)
 }
 
-case class EthernetRx(ethernetRxGenerics: EthernetRxGenerics) extends Component {
+case class EthernetRx(ethernetRxGenerics: EthernetRxGenerics)
+    extends Component {
   val io = new Bundle {
     val dataIn =
       slave Stream (Fragment(EthernetRxDataIn()))
@@ -68,39 +69,20 @@ case class EthernetRx(ethernetRxGenerics: EthernetRxGenerics) extends Component 
     }.result
   // 提取包头数据并维持在处理整个包时有效, 直到下一个包头.
 
-  val dataInExtractCompany = StreamExtractCompany(io.dataIn, companyExtractFunc).throwWhen(io.dataIn.first)
+  val dataInExtractCompany = StreamExtractCompany(io.dataIn, companyExtractFunc)
+    .throwWhen(io.dataIn.first)
 
-  val (dataInExtractCompany1, dataInExtractCompany2) = StreamFork2(
-    dataInExtractCompany
-  )
-
-  val inputData = Stream(Fragment(EthernetRxDataIn()))
-  val inputEth  = Stream(Header())
-
-  inputData << dataInExtractCompany1.translateWith {
-    val ret = Fragment(EthernetRxDataIn())
-    ret.tkeep := dataInExtractCompany._1.tkeep
-    ret.data  := dataInExtractCompany._1.data
-    ret.last  := dataInExtractCompany._1.last
-    ret
-  }
-
-  inputEth << dataInExtractCompany2.translateWith {
-    val ret = Header()
-    ret.set(
-      dataInExtractCompany._2.data(DATA_WIDTH - 1 downto DATA_WIDTH - BYTE_WIDTH * ETH_TOTAL_LENGTH)
-    )
-    ret
-  }
-
-  val eth = StreamJoin
-    .arg(inputData, inputEth)
+  val eth = dataInExtractCompany
     .translateWith {
       val ret = EthernetRxDataEth()
-      ret.input.tkeep := inputData.tkeep
-      ret.input.data  := inputData.data
-      ret.input.last  := inputData.last
-      ret.eth         := inputEth.payload // 包传递完成前保持不变.
+      ret.input.tkeep := dataInExtractCompany._1.tkeep
+      ret.input.data  := dataInExtractCompany._1.data
+      ret.input.last  := dataInExtractCompany._1.last
+      ret.eth.set(
+        dataInExtractCompany._2.data(
+          DATA_WIDTH - 1 downto DATA_WIDTH - BYTE_WIDTH * ETH_TOTAL_LENGTH
+        )
+      ) // 包传递完成前保持不变.
       ret
     }
 
@@ -109,11 +91,15 @@ case class EthernetRx(ethernetRxGenerics: EthernetRxGenerics) extends Component 
       && (ip.destIp === ethernetRxGenerics.destIp)
   )
 
-  def EthUdpCheck(udp: UDPHeader): Bool = ~(udp.destPort === ethernetRxGenerics.destPort)
+  def EthUdpCheck(udp: UDPHeader): Bool =
+    ~(udp.destPort === ethernetRxGenerics.destPort)
   // 校验包头各部分.
 
   def EthMacCheck(tkeep: Bits, mac: MacHeader): Bool = ~(
-    tkeep(KEEP_WIDTH - 1 downto KEEP_WIDTH - ETH_TOTAL_LENGTH) === B(ETH_TOTAL_LENGTH bits, default -> True)
+    tkeep(KEEP_WIDTH - 1 downto KEEP_WIDTH - ETH_TOTAL_LENGTH) === B(
+      ETH_TOTAL_LENGTH bits,
+      default -> True
+    )
       && (mac.preambleSdf === PREAMBLE_SDF)
       && ((mac.destMac === ethernetRxGenerics.destMac) || (mac.destMac === BROADCAST_MAC_ADDRESS))
       && (mac.ethType === ETH_TYPE)
