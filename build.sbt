@@ -1,8 +1,8 @@
 ThisBuild / version      := "1.0"
-ThisBuild / scalaVersion := "2.13.8"
+ThisBuild / scalaVersion := "2.11.12"
 ThisBuild / organization := "org.example"
 
-val spinalVersion = "1.7.2"
+val spinalVersion = "dev"
 val spinalCore    = "com.github.spinalhdl" %% "spinalhdl-core" % spinalVersion
 val spinalLib     = "com.github.spinalhdl" %% "spinalhdl-lib"  % spinalVersion
 val spinalIdslPlugin = compilerPlugin(
@@ -18,7 +18,7 @@ lazy val udp = (project in file("."))
       spinalCore,
       spinalLib,
       spinalIdslPlugin
-    ),
+    )/*,
     scalacOptions := Seq(
       // "-V", // Print a synopsis of verbose options.
       // "-W", // Print a synopsis of warning options.
@@ -88,7 +88,7 @@ lazy val udp = (project in file("."))
       "-Xlint:unit-special", // Warn for specialization of Unit in parameter position.
       "-Xlint:multiarg-infix", // Infix operator was defined or used with multiarg operand.
       "-Xlint:implicit-recursion" // Implicit resolves to an enclosing definition.
-    )
+    )*/
   )
 
 fork := true

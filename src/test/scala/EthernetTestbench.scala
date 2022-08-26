@@ -13,6 +13,7 @@ class udp_40G_TOP() extends BlackBox {
     val gt_rxn_in_40MAC_0    = in Bits (4 bits)
     val gt_txp_out_40MAC_0   = out Bits (4 bits)
     val gt_txn_out_40MAC_0   = out Bits (4 bits)
+    val rx_aligned_led = out Bool()
     val sys_reset            = in Bool ()
     val gt_ref_clk_p_40MAC_0 = in Bool ()
     val gt_ref_clk_n_40MAC_0 = in Bool ()
@@ -45,18 +46,21 @@ class udp_40G_TOP() extends BlackBox {
   addRTLPath("./VIVADO/Sources/TxFsm.v")
 
   addRTLPath("./Sources/EthernetTx.v")
-  // addRTLPath("./Sources/EthernetRx.v")
+  addRTLPath("./Sources/EthernetRx.v")
 
   // addRTLPath("./VIVADO/Sources/EthernetTx.v")
-  addRTLPath("./VIVADO/Sources/EthernetRx.v")
+  // addRTLPath("./VIVADO/Sources/EthernetRx.v")
 }
 
 class TopLevel extends Component {
   val io = new Bundle {
     val gt_ref_clk_p_40MAC_0 = in Bool ()
+    val gt_ref_clk_n_40MAC_0 = in Bool ()
     val sys_clk_p            = in Bool ()
+    val sys_clk_n            = in Bool ()
     val gt_txp_out_40MAC_0   = out Bits (4 bits)
     val gt_txn_out_40MAC_0   = out Bits (4 bits)
+    val rx_aligned_led = out Bool()
     val pkt_clk              = out Bool ()
 
     val fsm_dataOut_valid_0                 = in Bool ()
@@ -78,9 +82,10 @@ class TopLevel extends Component {
   val udp = new udp_40G_TOP()
   udp.io.gt_ref_clk_p_40MAC_0 := io.gt_ref_clk_p_40MAC_0
   udp.io.sys_clk_p            := io.sys_clk_p
-  udp.io.gt_ref_clk_n_40MAC_0 := !io.gt_ref_clk_p_40MAC_0
-  udp.io.sys_clk_n            := !io.sys_clk_p
+  udp.io.gt_ref_clk_n_40MAC_0 := io.gt_ref_clk_n_40MAC_0
+  udp.io.sys_clk_n            := io.sys_clk_n
   udp.io.pkt_clk              <> io.pkt_clk
+  udp.io.rx_aligned_led<>io.rx_aligned_led
 
   udp.io.gt_txp_out_40MAC_0 <> io.gt_txp_out_40MAC_0
   udp.io.gt_txn_out_40MAC_0 <> io.gt_txn_out_40MAC_0
@@ -115,6 +120,7 @@ class EthernetTestbench extends AnyFunSuite {
     EthernetRxMain.main(Array("Sources"))
     EthernetTxMain.main(Array("Sources"))
     compiled = SimConfig.withWave.withXSim
+      .withXilinxDevice("xcvu13p-fhgb2104-2-i")
       // .addSimulatorFlag("-part xcvu13p-fhgb2104-2-i")
       // .addSimulatorFlag("-d SIM")
       .withXSimSourcesPaths(
@@ -132,14 +138,19 @@ class EthernetTestbench extends AnyFunSuite {
         dut.clockDomain.fallingEdge()
         while (true) {
           dut.clockDomain.clockToggle()
-          sleep(1)
+          sleep(1000)
         }
       }
       ClockDomain(
         dut.io.gt_ref_clk_p_40MAC_0,
         config = ClockDomainConfig(clockEdge = FALLING)
       ).forkStimulus(96)
+      ClockDomain(dut.io.gt_ref_clk_n_40MAC_0).forkStimulus(96)
       ClockDomain(dut.io.sys_clk_p).forkStimulus(50)
+      ClockDomain(
+        dut.io.sys_clk_n,
+        config = ClockDomainConfig(clockEdge = FALLING)
+      ).forkStimulus(50)
       fork {
         dut.clockDomain.assertReset()
         sleep(2000)
@@ -157,11 +168,11 @@ class EthernetTestbench extends AnyFunSuite {
         while (q.nonEmpty) ret = ret + q.dequeue()
         ret
       }
-      dut.io.fsm_dataOut_payload_last_0 #= false
+      dut.io.fsm_dataOut_payload_last_0 #= false //Or the first segment will be discarded(?)
       dut.io.fsm_dataOut_payload_fragment_data_0 #= 0
       // dut.io.fsm_dataOut_payload_fragment_byteNum_0 #= BigInt("0064", 16)
       // dut.io.fsm_dataOut_payload_fragment_tkeep_0 #= BigInt("FFFFFFFFFFFFFFFF", 16)
-
+      waitUntil(dut.io.rx_aligned_led.toBoolean)
       fork {
         for (_ <- 0 until 1000000) {
           val io = dut.io
@@ -179,8 +190,8 @@ class EthernetTestbench extends AnyFunSuite {
               scoreboard.enqueue(stimulus)
               println(Console.RED + s"Stimulus:\n${stimulus}")
             }
-            io.fsm_dataOut_payload_last_0.randomize()
-            io.fsm_dataOut_payload_fragment_data_0.randomize()
+            io.fsm_dataOut_payload_last_0 #= (io.fsm_dataOut_payload_fragment_data_0.toBigInt % 80 == 79)
+            io.fsm_dataOut_payload_fragment_data_0 #= (io.fsm_dataOut_payload_fragment_data_0.toBigInt + 1)
           }
         }
       }

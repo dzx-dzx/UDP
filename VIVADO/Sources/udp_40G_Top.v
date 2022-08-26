@@ -6,6 +6,7 @@ module udp_40G_TOP
     input  [3 :0]   gt_rxn_in_40MAC_0               ,
     output [3 :0]   gt_txp_out_40MAC_0              ,
     output [3 :0]   gt_txn_out_40MAC_0              ,
+    output          rx_aligned_led                  ,
 `ifdef SIM
     input sys_reset,
 `endif 
@@ -73,6 +74,7 @@ wire sys_reset;
     wire           tx_axis_tuser_40MAC_0       ;
     wire           tx_axis_tready_40MAC_0      ;
 
+
     assign tx_axis_tuser_40MAC_0 = 1'b0;
 
     l_ethernet_0_exdes inst_0_ethernet_0_exdes (
@@ -96,7 +98,8 @@ wire sys_reset;
             .tx_axis_tdata   (tx_axis_tdata_40MAC_0),
             .tx_axis_tlast   (tx_axis_tlast_40MAC_0),
             .tx_axis_tkeep   (tx_axis_tkeep_40MAC_0),
-            .tx_axis_tuser   (tx_axis_tuser_40MAC_0)
+            .tx_axis_tuser   (tx_axis_tuser_40MAC_0),
+            .rx_aligned_led  (rx_aligned_led)
         );
 
 

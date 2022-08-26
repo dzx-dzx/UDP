@@ -9,7 +9,7 @@ module l_ethernet_0_exdes
   output wire [4-1:0] gt_txn_out,
   // input wire send_continuous_pkts_0,
   //   output wire       rx_gt_locked_led,
-  //   output wire       rx_aligned_led,
+  output wire       rx_aligned_led,
   //   output wire [4:0] completion_status,
 
     input             sys_reset,
@@ -445,6 +445,8 @@ assign ctl_tx_send_rfi_0               =1'b0 ;
 assign ctl_tx_send_idle_0              =1'b0 ;
 assign ctl_tx_custom_preamble_enable_0 =1'b0 ;
 assign ctl_tx_ignore_fcs_0             =1'b0 ;
+
+assign rx_aligned_led = stat_rx_aligned_0;
 
 
 endmodule
