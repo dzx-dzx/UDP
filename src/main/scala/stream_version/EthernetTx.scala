@@ -70,7 +70,7 @@ case class EthernetTx(ethernetTxGenerics: EthernetTxGenerics) extends Component 
   ethReg.udp.udpLength   := (realTxDataNum + UDP_ETH_LENGTH).asBits
   ethReg.udp.udpCheckSum := U"16'x0000"
 
-  val ipEth = ethReg.ip.asBits.subdivideIn(16 bits).map(_.asUInt) // 提取IP头并按16bit对齐. subdivideIn应该是更好的写法.
+  val ipEth = ethReg.ip.concat.subdivideIn(16 bits).map(_.asUInt) // 提取IP头并按16bit对齐. subdivideIn应该是更好的写法.
 
   val headerStage = Stream(Fragment(EthernetTxDataOut()))
   // https://en.wikipedia.org/wiki/Internet_checksum

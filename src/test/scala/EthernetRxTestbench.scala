@@ -53,8 +53,7 @@ class EthernetRxTestbench extends AnyFunSuite {
         fork {
           while (true) {
             dut.clockDomain.waitSampling()
-            io.dataIn.valid.randomize()
-
+            if (!io.dataIn.valid.toBoolean) io.dataIn.valid.randomize()
             if (io.dataIn.valid.toBoolean && io.dataIn.ready.toBoolean) {
               if (io.dataIn.payload.last.toBoolean) {
                 insertHeader()
@@ -68,6 +67,7 @@ class EthernetRxTestbench extends AnyFunSuite {
                 io.dataIn.payload.last.randomize()
                 io.dataIn.payload.fragment.data #= dataIn
               }
+              io.dataIn.valid.randomize()
             }
           }
         }

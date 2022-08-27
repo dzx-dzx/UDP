@@ -127,8 +127,8 @@ class EthernetTxTestbench extends AnyFunSuite {
         fork {
           while (true) {
             dut.clockDomain.waitSampling()
-            io.dataIn.valid.randomize()
 
+            if (!io.dataIn.valid.toBoolean) io.dataIn.valid.randomize()
             if (io.dataIn.valid.toBoolean && io.dataIn.ready.toBoolean) {
               stimulusFragment.enqueue(
                 io.dataIn.payload.data.toBigInt.toString(16)
@@ -140,6 +140,7 @@ class EthernetTxTestbench extends AnyFunSuite {
               }
               io.dataIn.payload.last.randomize()
               io.dataIn.payload.fragment.data.randomize()
+              io.dataIn.valid.randomize()
             }
           }
         }
@@ -155,7 +156,9 @@ class EthernetTxTestbench extends AnyFunSuite {
                   io.dataOut.payload.data.toBigInt.toString(16)
                 )
               else {
-                println(Console.YELLOW + s"Header:${io.dataOut.payload.data.toBigInt.toString(16)}")
+                println(
+                  Console.YELLOW + s"Header:${io.dataOut.payload.data.toBigInt.toString(16)}"
+                )
                 createHeader(io.dataOut.payload.data.toBigInt)
               }
               if (io.dataOut.payload.last.toBoolean) {
