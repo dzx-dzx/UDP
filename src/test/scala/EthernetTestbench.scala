@@ -13,7 +13,7 @@ class udp_40G_TOP() extends BlackBox {
     val gt_rxn_in_40MAC_0    = in Bits (4 bits)
     val gt_txp_out_40MAC_0   = out Bits (4 bits)
     val gt_txn_out_40MAC_0   = out Bits (4 bits)
-    val rx_aligned_led = out Bool()
+    val rx_aligned_led       = out Bool ()
     val sys_reset            = in Bool ()
     val gt_ref_clk_p_40MAC_0 = in Bool ()
     val gt_ref_clk_n_40MAC_0 = in Bool ()
@@ -60,7 +60,7 @@ class TopLevel extends Component {
     val sys_clk_n            = in Bool ()
     val gt_txp_out_40MAC_0   = out Bits (4 bits)
     val gt_txn_out_40MAC_0   = out Bits (4 bits)
-    val rx_aligned_led = out Bool()
+    val rx_aligned_led       = out Bool ()
     val pkt_clk              = out Bool ()
 
     val fsm_dataOut_valid_0                 = in Bool ()
@@ -85,7 +85,7 @@ class TopLevel extends Component {
   udp.io.gt_ref_clk_n_40MAC_0 := io.gt_ref_clk_n_40MAC_0
   udp.io.sys_clk_n            := io.sys_clk_n
   udp.io.pkt_clk              <> io.pkt_clk
-  udp.io.rx_aligned_led<>io.rx_aligned_led
+  udp.io.rx_aligned_led       <> io.rx_aligned_led
 
   udp.io.gt_txp_out_40MAC_0 <> io.gt_txp_out_40MAC_0
   udp.io.gt_txn_out_40MAC_0 <> io.gt_txn_out_40MAC_0
@@ -168,7 +168,7 @@ class EthernetTestbench extends AnyFunSuite {
         while (q.nonEmpty) ret = ret + q.dequeue()
         ret
       }
-      dut.io.fsm_dataOut_payload_last_0 #= false //Or the first segment will be discarded(?)
+      dut.io.fsm_dataOut_payload_last_0 #= false // Or the first segment will be discarded(?)
       dut.io.fsm_dataOut_payload_fragment_data_0 #= 0
       // dut.io.fsm_dataOut_payload_fragment_byteNum_0 #= BigInt("0064", 16)
       // dut.io.fsm_dataOut_payload_fragment_tkeep_0 #= BigInt("FFFFFFFFFFFFFFFF", 16)
